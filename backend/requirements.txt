@@ -4,3 +4,4 @@ sqlalchemy
 pydantic
 ollama
 psycopg2-binary
+python-dotenv
