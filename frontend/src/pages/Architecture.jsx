@@ -91,7 +91,7 @@ export default function Architecture() {
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-green-400/30 transition">
               <h3 className="text-green-400 font-bold mb-2">State-Driven UX</h3>
-              <p className="text-sm text-white/60">Frontend dashboards will directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion -> MAP Generation -> Audit like a Swiggy delivery tracker.</p>
+              <p className="text-sm text-white/60">Frontend dashboards will directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion ➔ MAP Generation ➔ Audit like a Swiggy delivery tracker.</p>
             </div>
           </div>
         </div>
