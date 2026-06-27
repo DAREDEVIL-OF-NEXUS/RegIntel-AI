@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
+import os
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="RegIntel AI Dashboard", layout="wide")
 
@@ -24,7 +25,7 @@ with st.sidebar:
             if res.status_code == 200:
                 data = res.json()
                 st.session_state.token = data["access_token"]
-                # In a real app, decode JWT to get role. Here we mock it based on username.
+                # Mock decode
                 st.session_state.username = username
                 st.session_state.role = username # "admin" or "officer"
                 st.success("Logged in successfully!")
@@ -70,7 +71,6 @@ with tab2:
     uploaded_file = st.file_uploader("Upload Evidence Document (PDF/Image)")
     if st.button("Validate Evidence") and uploaded_file and map_text:
         with st.spinner("Validating..."):
-            # Mocking the file upload payload
             res = requests.post(
                 f"{API_URL}/upload-evidence", 
                 json={"file_name": uploaded_file.name, "map_text": map_text},
