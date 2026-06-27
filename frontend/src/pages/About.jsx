@@ -125,22 +125,22 @@ export default function About() {
               Development Phases & Execution
             </h2>
             <div className="space-y-6">
-              <PhaseCard num="1" title="Initial System Setup" desc="Initialized FastAPI, PostgreSQL, and React. Configured the modular monolithic structure for scalable micro-agent deployment." />
-              <PhaseCard num="2" title="Database Architecture" desc="Built SQLAlchemy ORMs with Active-Probing Failovers. Designed schemas to log Workflow States, saving AI generation output directly to the DB." />
-              <PhaseCard num="3" title="Graph Orchestrator Engine" desc="Rejected LangChain due to overhead. Developed a custom, lightweight State Graph engine from scratch to handle agent routing and infinite-loop protection." />
-              <PhaseCard num="4" title="Parser & MAP Agents" desc="Integrated Ollama (LLaMA3). Engineered the NLP prompt pipelines to ingest raw legalese and generate strictly formatted Measurable Action Points (MAPs) in JSON." />
-              <PhaseCard num="5" title="Department & JWT Auth" desc="Added an Agent to map regulations to specific departments (e.g., IT, Risk). Built Enterprise JWT Role-Based Access Control (RBAC) to separate Admin and Officer views." />
-              <PhaseCard num="6" title="Ingestion & Dual-LLM Resiliency" desc="Added offline PDF extraction and Web Scraping. Built the mission-critical Dual-LLM Gateway: automatically falling back to Gemini 1.5 Flash if the local GPU crashes." />
-              <PhaseCard num="7" title="Priority Engine" desc="Programmed the AI to syntactically evaluate regulation severity. Generates a Priority Score (1-10) to dynamically sort the PostgreSQL queues for Officers." />
-              <PhaseCard num="8" title="Vision Auditor Pipeline" desc="Deployed LLaVA and Gemini Vision models to algorithmically validate uploaded photographic evidence against the AI-generated Action Points, creating a fully closed-loop system." />
-              <PhaseCard num="9" title="Master Frontend Upgrade" desc="Overhauled the React UI. Built Role-Based Dashboards, Heatmaps, and the Swiggy-Style real-time Workflow Tracker directly subscribing to the Graph Engine." />
-              <PhaseCard num="10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, created fake analytics for scale projection, and polished the architecture flowcharts." />
-              <PhaseCard num="11" title="Fraud Detection & AI Nuance" desc="Implemented strict JSON parsers to prevent LLM hallucinations. Added an AI Summary and Step-by-Step Recommendation generation. Engineered an Anti-Fraud escalation system banning officers after 6 fraudulent uploads and alerting the Admin." />
-              <PhaseCard num="12" title="UI Formatting & MAP Rendering Upgrade" desc="Completely overhauled the rendering of Measurable Action Points (MAPs) on the dashboard into a beautifully formatted grid. Enhanced the AI Agent to logically separate step-by-step instructions from additional recommendations using bullet points and numbered lists." />
-              <PhaseCard num="13" title="Advanced Admin Reporting Engine" desc="Integrated a dynamic Department Filtering engine into the Admin Dashboard. Built a one-click CSV Data Export feature for real-time compliance reporting and auditing." />
-              <PhaseCard num="14" title="Compliance Risk Heatmap & Analytics" desc="Replaced hardcoded infographics with a real-time Risk Heatmap. The dashboard now cross-references Departments against AI-generated Priority Scores to dynamically color-code pending regulatory load across the enterprise." />
-              <PhaseCard num="15" title="Global Semantic Omni-Search" desc="Implemented a real-time search engine on the Master Dashboard. Admins can now instantly filter thousands of regulations by ID, text snippets, or AI summaries, creating a lightning-fast data retrieval experience." />
-              <PhaseCard num="16" title="Human-in-the-Loop Registration" desc="Upgraded the Graph Orchestrator to hold AI outputs in a visual staging environment. Admins must explicitly click 'Register Obligation' to commit the AI's execution plan to the database, preventing hallucinatory data corruption." />
+              <PhaseCard num="1" title="Initial System Setup" desc="Initialized FastAPI, PostgreSQL, and React." tasks={["Configured modular monolithic backend structure", "Setup Vite & Tailwind CSS frontend", "Configured environment secrets (.env)"]} />
+              <PhaseCard num="2" title="Database Architecture" desc="Built SQLAlchemy ORMs with Active-Probing Failovers." tasks={["Created Regulation, WorkflowState, and Evidence tables", "Implemented Cloud Postgres & SQLite fallback logic", "Built schema migration scripts"]} />
+              <PhaseCard num="3" title="Graph Orchestrator Engine" desc="Developed a custom, lightweight State Graph engine from scratch." tasks={["Designed Node and Edge routing classes", "Implemented infinite-loop protection", "Built real-time state emission for frontend UI"]} />
+              <PhaseCard num="4" title="Parser & MAP Agents" desc="Integrated Ollama (LLaMA3) for NLP pipeline." tasks={["Engineered legalese-to-JSON parsing prompts", "Built Measurable Action Point (MAP) extraction agent", "Added offline PDF text extraction"]} />
+              <PhaseCard num="5" title="Department & JWT Auth" desc="Added an Agent to map regulations to specific departments." tasks={["Built Role-Based Access Control (RBAC)", "Designed secure JWT authentication middleware", "Created isolated Admin and Officer dashboard endpoints"]} />
+              <PhaseCard num="6" title="Dual-LLM Resiliency" desc="Built the mission-critical Dual-LLM Gateway." tasks={["Implemented active model-health probing", "Configured automatic fallback to Gemini 1.5 Flash", "Added transparent failover logging"]} />
+              <PhaseCard num="7" title="Priority Engine" desc="Programmed the AI to syntactically evaluate regulation severity." tasks={["Designed 1-10 priority scoring algorithm", "Created dynamic PostgreSQL queue sorting", "Integrated semantic severity keywords analysis"]} />
+              <PhaseCard num="8" title="Vision Auditor Pipeline" desc="Deployed LLaVA and Gemini Vision models for evidence validation." tasks={["Built base64 image encoding pipeline", "Engineered Vision prompt to validate evidence vs MAP", "Implemented 'Approved' or 'Rejected' closed-loop response"]} />
+              <PhaseCard num="9" title="Master Frontend Upgrade" desc="Overhauled the React UI for Role-Based Dashboards." tasks={["Built Glassmorphism UI components", "Created real-time Swiggy-Style Workflow Tracker", "Implemented department-specific data fetching"]} />
+              <PhaseCard num="10" title="The Grand Polish" desc="Finalized UI styling and documentation." tasks={["Added fake analytics for scale projection", "Polished architecture flowcharts", "Wrote comprehensive README and API docs"]} />
+              <PhaseCard num="11" title="Fraud Detection & AI Nuance" desc="Implemented strict JSON parsers and Anti-Fraud systems." tasks={["Built 3-strike Ban Policies for fraudulent uploads", "Created automatic Admin alert escalation", "Engineered AI Summary generation for Officers"]} />
+              <PhaseCard num="12" title="UI Formatting Upgrade" desc="Overhauled the rendering of MAPs on the dashboard." tasks={["Mapped JSON payloads into distinct Action/Metric cards", "Separated instructions from strategic recommendations", "Added bulleted list rendering for clarity"]} />
+              <PhaseCard num="13" title="Reporting Engine" desc="Integrated dynamic reporting into the Admin Dashboard." tasks={["Built one-click CSV Data Export feature", "Added URI encoding for fast browser downloads", "Created real-time departmental load analytics"]} />
+              <PhaseCard num="14" title="Compliance Risk Heatmap" desc="Built a real-time Risk Heatmap for Admins." tasks={["Cross-referenced Departments vs AI Priority Scores", "Implemented color-coded load distribution", "Created dynamic severity warnings"]} />
+              <PhaseCard num="15" title="Omni-Search Engine" desc="Implemented a real-time semantic search engine." tasks={["Built O(n) data retrieval filtering", "Added search by ID, snippet, or AI summary", "Integrated instant UI feedback without API calls"]} />
+              <PhaseCard num="16" title="Human-in-the-Loop Auth" desc="Added a 'Register Obligation' Admin checkpoint." tasks={["Created visual staging environment for AI outputs", "Built manual authorization commit logic", "Prevented unverified AI hallucination propagation"]} />
             </div>
           </section>
         </div>
@@ -149,7 +149,7 @@ export default function About() {
   );
 }
 
-function PhaseCard({ num, title, desc }) {
+function PhaseCard({ num, title, desc, tasks }) {
   return (
     <motion.div 
       whileHover={{ scale: 1.02, x: 10, boxShadow: "0 10px 30px -10px rgba(234,179,8,0.3)" }}
@@ -160,13 +160,20 @@ function PhaseCard({ num, title, desc }) {
       <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-black text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-[0_0_15px_rgba(234,179,8,0.2)] relative z-10">
         {num}
       </div>
-      <div className="relative z-10">
+      <div className="relative z-10 flex-1">
         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors tracking-tight">
           {title}
         </h3>
-        <p className="text-white/60 leading-relaxed text-sm">
+        <p className="text-white/60 leading-relaxed text-sm mb-3">
           {desc}
         </p>
+        {tasks && (
+          <ul className="list-disc list-inside text-xs text-white/50 space-y-1 ml-2">
+            {tasks.map((task, idx) => (
+              <li key={idx}>{task}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </motion.div>
   );

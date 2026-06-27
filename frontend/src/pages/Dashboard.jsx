@@ -110,7 +110,12 @@ export default function Dashboard() {
         { text: regulation }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setWorkflowResult(res.data);
+      if (res.data.error) {
+        alert("Workflow Error: " + res.data.error);
+        setWorkflowResult(null);
+      } else {
+        setWorkflowResult(res.data);
+      }
     } catch (err) {
       alert("Error connecting to AI Backend. Ensure FastAPI is running.");
     }

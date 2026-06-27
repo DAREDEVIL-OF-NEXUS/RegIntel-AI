@@ -41,13 +41,13 @@ class WorkflowService:
 
     def _clean_json(self, text: str) -> str:
         if not text: return "{}"
-        text = text.strip()
-        if text.startswith("```json"):
-            text = text[7:]
-        if text.startswith("```"):
-            text = text[3:]
-        if text.endswith("```"):
-            text = text[:-3]
+        
+        import re
+        # Try to find a JSON block between curly braces or brackets
+        match = re.search(r'(\{.*?\}|\[.*?\])', text, re.DOTALL)
+        if match:
+            return match.group(0).strip()
+            
         return text.strip()
 
     def execute_workflow(self, text: str) -> WorkflowState:

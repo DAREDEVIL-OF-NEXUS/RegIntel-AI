@@ -47,81 +47,155 @@ export default function Home() {
         />
         <FeatureCard 
           icon={<ShieldCheck size={32} className="text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]" />}
-          title="Under-the-Hood Fallbacks"
+          title="Dual-LLM Failovers"
           desc="100% Offline-First (Ollama). Seamlessly reroutes to Gemini Cloud APIs ONLY if local GPUs crash, ensuring 100% uptime without a manual toggle."
         />
         <FeatureCard 
           icon={<Database size={32} className="text-purple-400 drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]" />}
-          title="Priority Engine"
-          desc="AI syntactically evaluates regulation severity. A critical cyber breach scores a 9/10, automatically jumping to the top of the queue."
+          title="Priority & DB Fallback"
+          desc="AI syntactically evaluates regulation severity. Database falls back from Cloud Postgres to local SQLite instantly on network failure."
         />
         <FeatureCard 
           icon={<FileText size={32} className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />}
-          title="Vision Auditor"
-          desc="Upload photos of compliance. LLaVA Vision offline AI validates the proof against the required action point. Falls back to Gemini Vision on failure."
+          title="Vision Auditor & Anti-Fraud"
+          desc="Offline AI validates photographic proof. 3-strike Ban Policies against officers attempting to upload fraudulent evidence."
+        />
+        <FeatureCard 
+          icon={<Activity size={32} className="text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.5)]" />}
+          title="Compliance Heatmap"
+          desc="Dynamic cross-reference heatmaps projecting departmental loads against AI Priority Scores in real-time."
+        />
+        <FeatureCard 
+          icon={<Database size={32} className="text-yellow-400 drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]" />}
+          title="Omni-Search Engine"
+          desc="A semantic text-filtering engine directly on the Admin Dashboard for O(n) data retrieval and compliance reporting."
+        />
+        <FeatureCard 
+          icon={<ShieldCheck size={32} className="text-orange-400 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]" />}
+          title="Human-in-the-Loop"
+          desc="Admins review AI outputs in a visual staging environment before they hit department queues to prevent hallucination."
+        />
+        <FeatureCard 
+          icon={<FileText size={32} className="text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" />}
+          title="Dynamic MAP UI"
+          desc="Separated JSON responses into heavily formatted frontend UI cards, novice AI summaries, and numbered recommendations."
         />
       </div>
 
       <div className="mt-32 w-full relative z-10 bg-black/40 border border-white/5 rounded-3xl p-10 shadow-2xl overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-50"></div>
-        <h2 className="text-3xl font-extrabold text-white mb-10 text-center tracking-tight relative z-10">Real-World Enterprise Impact</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10 mb-12">
+        <h2 className="text-3xl font-extrabold text-white mb-10 text-center tracking-tight relative z-10">Real-World Enterprise Impact (Infographics)</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center relative z-10 mb-12">
           <div>
-            <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">99.9%</div>
-            <div className="text-white/70 font-semibold tracking-wide uppercase text-sm">Autonomous MAP Generation</div>
+            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">99.9%</div>
+            <div className="text-white/70 font-semibold tracking-wide uppercase text-xs">Autonomous MAP Generation</div>
           </div>
           <div>
-            <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-2">~$1.2B</div>
-            <div className="text-white/70 font-semibold tracking-wide uppercase text-sm">Projected Compliance Fines Avoided</div>
+            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-2">~$1.2B</div>
+            <div className="text-white/70 font-semibold tracking-wide uppercase text-xs">Projected Fines Avoided</div>
           </div>
           <div>
-            <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2">100%</div>
-            <div className="text-white/70 font-semibold tracking-wide uppercase text-sm">Air-Gapped Secure Execution</div>
+            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2">100%</div>
+            <div className="text-white/70 font-semibold tracking-wide uppercase text-xs">Air-Gapped Secure Execution</div>
+          </div>
+          <div>
+            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">0.05s</div>
+            <div className="text-white/70 font-semibold tracking-wide uppercase text-xs">Postgres to SQLite Failover Time</div>
           </div>
         </div>
         
-        <div className="relative z-10 mt-8 bg-black/50 p-6 rounded-2xl border border-white/10">
-          <h3 className="text-xl font-bold text-white mb-6 text-center">Processing Speed vs Human Compliance Teams</h3>
-          <div className="space-y-6">
-            <div>
-              <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
-                <span>Traditional Human Analysis (300 Page Circular)</span>
-                <span>~3 Weeks</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+          <div className="bg-black/50 p-6 rounded-2xl border border-white/10">
+            <h3 className="text-xl font-bold text-white mb-6 text-center">Processing Speed vs Human Compliance Teams</h3>
+            <div className="space-y-6">
+              <div>
+                <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                  <span>Traditional Human Analysis (300 Page Circular)</span>
+                  <span>~3 Weeks</span>
+                </div>
+                <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
+                  <div className="bg-red-500/50 h-4 rounded-full" style={{ width: '100%' }}></div>
+                </div>
               </div>
-              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
-                <div className="bg-red-500/50 h-4 rounded-full" style={{ width: '100%' }}></div>
+              <div>
+                <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                  <span>Standard NLP Extraction</span>
+                  <span>~2 Days</span>
+                </div>
+                <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
+                  <div className="bg-yellow-500/80 h-4 rounded-full" style={{ width: '15%' }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs text-cyan-400 mb-2 font-mono uppercase tracking-wider font-bold">
+                  <span>RegIntel AI Graph Engine</span>
+                  <span>~45 Seconds</span>
+                </div>
+                <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 h-4 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.8)]" style={{ width: '2%' }}></div>
+                </div>
               </div>
             </div>
-            <div>
-              <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
-                <span>Standard NLP Extraction</span>
-                <span>~2 Days</span>
+          </div>
+
+          <div className="bg-black/50 p-6 rounded-2xl border border-white/10">
+            <h3 className="text-xl font-bold text-white mb-6 text-center">Fraud Detection Accuracy Over Time</h3>
+            <div className="flex items-end justify-between h-32 px-4 border-b border-white/10 pb-2">
+              <div className="w-8 bg-red-500/50 h-[30%] rounded-t-md relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition">30%</div>
               </div>
-              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
-                <div className="bg-yellow-500/80 h-4 rounded-full" style={{ width: '15%' }}></div>
+              <div className="w-8 bg-orange-500/60 h-[45%] rounded-t-md relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition">45%</div>
+              </div>
+              <div className="w-8 bg-yellow-500/70 h-[65%] rounded-t-md relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition">65%</div>
+              </div>
+              <div className="w-8 bg-green-500/80 h-[85%] rounded-t-md relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition">85%</div>
+              </div>
+              <div className="w-8 bg-gradient-to-t from-cyan-400 to-blue-500 h-[98%] rounded-t-md shadow-[0_0_15px_rgba(0,243,255,0.5)] relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition text-cyan-400 font-bold">99%</div>
               </div>
             </div>
-            <div>
-              <div className="flex justify-between text-xs text-cyan-400 mb-2 font-mono uppercase tracking-wider font-bold">
-                <span>RegIntel AI Graph Engine</span>
-                <span>~45 Seconds</span>
-              </div>
-              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 h-4 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.8)]" style={{ width: '2%' }}></div>
-              </div>
+            <div className="flex justify-between text-xs text-white/50 mt-2 px-4 uppercase font-mono">
+              <span>Wk 1</span>
+              <span>Wk 2</span>
+              <span>Wk 3</span>
+              <span>Wk 4</span>
+              <span className="text-cyan-400 font-bold">Now</span>
             </div>
+            <p className="text-center text-xs text-white/60 mt-4">AI Validator Model automatically escalating and rejecting fraudulent evidence.</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-32 w-full max-w-4xl relative z-10 text-center">
-        <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight">The Vision & The Architect</h2>
-        <p className="text-lg text-white/70 leading-relaxed mb-8">
-          RegIntel AI is not just a hackathon prototype—it is a mission to protect the global economy by eliminating human error in regulatory compliance. Architected by a <strong>First-Year B.Tech CSE Student at DTU</strong>, this platform bridges the gap between academic theory and Silicon Valley-tier software engineering.
-        </p>
+      <div className="mt-32 w-full max-w-5xl relative z-10 text-center">
+        <h2 className="text-4xl font-extrabold text-white mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">Overview of the Vision</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-10">
+          <div className="glass-panel p-6 border border-cyan-500/30">
+            <h3 className="text-cyan-400 font-bold text-lg mb-3">The Architect</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Architected by a First-Year B.Tech CSE Student at DTU, this platform bridges the gap between academic theory and Silicon Valley-tier software engineering. Built to scale and endure.
+            </p>
+          </div>
+          <div className="glass-panel p-6 border border-purple-500/30">
+            <h3 className="text-purple-400 font-bold text-lg mb-3">The Moral Imperative</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              When massive institutions fail to comply with cybersecurity frameworks, ordinary citizens lose their savings. RegIntel AI eliminates human error in compliance reading to secure infrastructure faster.
+            </p>
+          </div>
+          <div className="glass-panel p-6 border border-green-500/30">
+            <h3 className="text-green-400 font-bold text-lg mb-3">The Hackathon Initiative</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Built specifically to solve a real-world problem at an immense scale. A resilient system with a custom Graph Orchestrator, Dual-LLM Failovers, and a polished UI ready for enterprise deployment.
+            </p>
+          </div>
+        </div>
+
         <Link to="/about">
-          <motion.button whileHover={{ scale: 1.05 }} className="glass-panel hover:bg-white/10 font-bold py-3 px-6 rounded-full transition border border-cyan-400/30 text-cyan-400 text-sm">
-            Read the Full Story
+          <motion.button whileHover={{ scale: 1.05 }} className="glass-panel hover:bg-white/10 font-bold py-4 px-8 rounded-full transition border border-cyan-400/50 shadow-[0_0_20px_rgba(0,243,255,0.2)] text-cyan-400">
+            Read the Full Story in About Section
           </motion.button>
         </Link>
       </div>

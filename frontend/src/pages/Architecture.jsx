@@ -112,6 +112,63 @@ export default function Architecture() {
         </div>
 
         <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
+          <h2 className="text-3xl font-bold text-white mb-10 text-center tracking-tight">Enterprise Failover & Reliability (Infographics)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="bg-black/50 p-8 rounded-2xl border border-white/10">
+              <h3 className="text-xl font-bold text-white mb-8 text-center">Uptime vs Traditional Monoliths</h3>
+              <div className="flex items-end justify-center h-40 gap-8 border-b border-white/10 pb-2 mb-8">
+                <div className="w-16 bg-red-500/50 h-[65%] rounded-t-md relative group flex items-end justify-center pb-2">
+                  <span className="text-white/80 font-mono text-sm">65%</span>
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-white/50 text-center w-24">Legacy Bank<br/>Systems</div>
+                </div>
+                <div className="w-16 bg-yellow-500/80 h-[82%] rounded-t-md relative group flex items-end justify-center pb-2">
+                  <span className="text-white/80 font-mono text-sm">82%</span>
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-white/50 text-center w-24">Standard Cloud<br/>Architecture</div>
+                </div>
+                <div className="w-16 bg-gradient-to-t from-green-400 to-emerald-500 h-[100%] rounded-t-md shadow-[0_0_15px_rgba(16,185,129,0.5)] relative group flex items-end justify-center pb-2">
+                  <span className="text-black font-black text-sm">99.9%</span>
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-green-400 font-bold text-center w-24">RegIntel AI<br/>Dual-Fallbacks</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-black/50 p-8 rounded-2xl border border-white/10">
+              <h3 className="text-xl font-bold text-white mb-6 text-center">Automatic Threat Mitigation</h3>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-1/3 text-right text-sm text-cyan-400 font-bold">API GPU Crash</div>
+                  <div className="w-2/3 bg-white/5 h-3 rounded-full overflow-hidden">
+                    <motion.div initial={{width:0}} animate={{width:"100%"}} transition={{duration:1}} className="bg-cyan-500 h-full"></motion.div>
+                  </div>
+                  <div className="text-xs text-white/50 font-mono w-24">Gemini Fallback</div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-1/3 text-right text-sm text-purple-400 font-bold">Postgres Down</div>
+                  <div className="w-2/3 bg-white/5 h-3 rounded-full overflow-hidden">
+                    <motion.div initial={{width:0}} animate={{width:"100%"}} transition={{duration:1, delay:0.2}} className="bg-purple-500 h-full"></motion.div>
+                  </div>
+                  <div className="text-xs text-white/50 font-mono w-24">SQLite Mount</div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-1/3 text-right text-sm text-red-400 font-bold">Fraud Uploads</div>
+                  <div className="w-2/3 bg-white/5 h-3 rounded-full overflow-hidden">
+                    <motion.div initial={{width:0}} animate={{width:"100%"}} transition={{duration:1, delay:0.4}} className="bg-red-500 h-full"></motion.div>
+                  </div>
+                  <div className="text-xs text-white/50 font-mono w-24">Vision Ban</div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-1/3 text-right text-sm text-green-400 font-bold">Hallucination</div>
+                  <div className="w-2/3 bg-white/5 h-3 rounded-full overflow-hidden">
+                    <motion.div initial={{width:0}} animate={{width:"100%"}} transition={{duration:1, delay:0.6}} className="bg-green-500 h-full"></motion.div>
+                  </div>
+                  <div className="text-xs text-white/50 font-mono w-24">Human Halt</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent pointer-events-none"></div>
           <h2 className="text-3xl font-bold text-white mb-10 text-center tracking-tight">Low-Level Orchestrator Graph Workflow</h2>
           
