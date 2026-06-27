@@ -54,6 +54,28 @@ export default function Home() {
           desc="Role-Based Access Control, JWT Auth, and 100% offline LLM execution ensure zero banking data leakage."
         />
       </div>
+
+      <div className="mt-32 w-full max-w-5xl relative z-10 mb-20">
+        <h2 className="text-3xl font-bold text-center mb-10 tracking-wide text-white">Development Roadmap</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <RoadmapCard phase="Phase 6" title="Ingestion & Resilience" desc="PDF Uploads, Web Scraping, & Gemini LLM Fallback." />
+          <RoadmapCard phase="Phase 7" title="Priority Engine" desc="Dynamic Priority Scoring (1-10) for regulations." />
+          <RoadmapCard phase="Phase 8" title="Vision Auditor" desc="Automated Evidence validation using LLaVA/Gemini Vision." />
+          <RoadmapCard phase="Phase 9" title="Role-Based UX" desc="Admin Heatmaps & Swiggy-style visual workflow tracking." />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RoadmapCard({ phase, title, desc }) {
+  return (
+    <div className="flex items-center gap-4 glass-panel p-4 border border-white/5 hover:border-cyan-400/30 transition-colors">
+      <div className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded font-bold text-sm whitespace-nowrap">{phase}</div>
+      <div>
+        <h4 className="font-bold text-white">{title}</h4>
+        <p className="text-white/50 text-xs">{desc}</p>
+      </div>
     </div>
   );
 }

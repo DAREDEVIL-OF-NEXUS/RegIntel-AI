@@ -10,6 +10,7 @@ RegIntel AI is a production-grade, offline-capable AI compliance copilot. It com
 
 * **Multi-Agent Architecture**: Dedicated specialized agents (Parser, MAP Generator, Department Assigner, Validator) executing tasks autonomously.
 * **Custom Graph Orchestrator**: A lightweight, dependency-free LangGraph alternative managing state transitions, conditional routing, and error halting.
+* **Fault-Tolerant Database Architecture**: Active connection probing that automatically falls back from Cloud PostgreSQL to Local SQLite during network outages, ensuring 100% uptime.
 * **Agent Memory**: Semantic search integrations allowing agents to compare new regulations against historical contexts to prevent hallucinations.
 * **Enterprise Security**: JWT-based Authentication and Role-Based Access Control (Admin vs. Officer views).
 * **Next-Gen Frontend**: A highly appealing React/Vite dashboard featuring glassmorphism, Framer Motion animations, and interactive comet-tail cursors.

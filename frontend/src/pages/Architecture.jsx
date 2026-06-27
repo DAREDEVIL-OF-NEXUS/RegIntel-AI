@@ -39,6 +39,13 @@ export default function Architecture() {
               <strong>Context Injected:</strong> "Previous Circular 2023 stated MFA must be enabled for all employees."
             </div>
           </motion.div>
+          
+          <motion.div whileHover={{ scale: 1.02 }} className="glass-panel p-8 border border-white/10 hover:border-green-400/50 transition-colors shadow-xl md:col-span-2">
+            <h2 className="text-2xl font-bold text-green-400 mb-4 tracking-wide">3. Fault-Tolerant Database Architecture</h2>
+            <p className="text-white/70 leading-relaxed mb-6">
+              Enterprise software cannot go down. The backend employs an active-probing fallback mechanism. Upon startup, it tests the primary Cloud PostgreSQL connection. If it detects a network outage or invalid credentials, it gracefully and instantly falls back to a local SQLite database without dropping a single API request, ensuring 100% uptime.
+            </p>
+          </motion.div>
         </div>
 
         <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
@@ -63,6 +70,28 @@ export default function Architecture() {
             <div className="bg-black/40 p-6 rounded-2xl border border-green-500/30 w-full hover:border-green-400 transition-colors">
               <span className="text-green-400 text-xl block mb-2 font-black">Database</span>
               PostgreSQL<br/>Audit Logs
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">Upcoming Architectural Marvels</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-cyan-400/30 transition">
+              <h3 className="text-cyan-400 font-bold mb-2">Dual-LLM Failover</h3>
+              <p className="text-sm text-white/60">If the offline local Ollama node crashes or lacks resources, the API Gateway will instantly reroute requests to Gemini 1.5 Flash via a secure cloud tunnel.</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-400/30 transition">
+              <h3 className="text-purple-400 font-bold mb-2">Vision Auditor Pipeline</h3>
+              <p className="text-sm text-white/60">Instead of humans verifying compliance proofs, uploaded images will be passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition">
+              <h3 className="text-blue-400 font-bold mb-2">Priority Queue Engine</h3>
+              <p className="text-sm text-white/60">Agents will be upgraded to syntactically score regulatory impact severity out of 10. PostgreSQL indexes will serve personalized, sorted queues for officers dynamically.</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-green-400/30 transition">
+              <h3 className="text-green-400 font-bold mb-2">State-Driven UX</h3>
+              <p className="text-sm text-white/60">Frontend dashboards will directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion -> MAP Generation -> Audit like a Swiggy delivery tracker.</p>
             </div>
           </div>
         </div>

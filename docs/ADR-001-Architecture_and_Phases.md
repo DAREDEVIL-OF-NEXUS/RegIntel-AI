@@ -36,8 +36,29 @@ To ensure zero regressions and minimize rewrites, we will execute in strict phas
 - **Phase 4: Enterprise Features**
   - JWT Authentication, RBAC (Officer/Admin roles), Evidence validation, Dashboard endpoints.
 
-- **Phase 5: Production Readiness**
+- **Phase 5: Production Readiness (Complete)**
   - Migrate to PostgreSQL, containerize with Docker, implement CI/CD.
+
+- **Phase 6: The Ingestion & Resilience Layer (Next)**
+  - Integrate `google-generativeai` fallback for LLMGateway.
+  - Implement robust PDF Upload parsing using `PyMuPDF`.
+  - Build basic online web-scraping utilities as an online augmentation to offline PDF parsing.
+
+- **Phase 7: The Priority Engine & Database Expansion**
+  - Add `priority_score` (1-10) and `status` to regulations and MAPs.
+  - Enhance Agent prompts to dynamically calculate priority based on urgency and penalty severity.
+
+- **Phase 8: The Dashboard APIs & Vision Auditor**
+  - Construct Admin (aggregation/heatmaps) and Officer (priority queue) backend endpoints.
+  - Implement Vision Service (Ollama LLaVA fallback to Gemini Vision) for validating photographic compliance evidence against specific MAPs.
+
+- **Phase 9: The Master Frontend Upgrade**
+  - Build Role-based Dashboards.
+  - Implement Swiggy-style animated workflow tracking.
+  - Create Evidence Upload modals with vision processing feedback.
+
+- **Phase 10: Documentation & Grand UI Polish**
+  - Update all diagrams, finalize documentation, and perfect UI responsiveness.
 
 ## Consequences
 - **Positive**: High extensibility, strong separation of concerns, robust error handling via Graph state, seamless fallback via `LLMGateway`.
