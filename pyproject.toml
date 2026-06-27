@@ -1,0 +1,22 @@
+[project]
+name = "regintel-ai"
+version = "0.1.0"
+description = "Offline Agentic AI platform for automated regulatory compliance, workflow orchestration, evidence validation, and audit management."
+authors = [
+    {name = "Lakshay Bharti"},
+    {name = "Madhav Mittal"},
+    {name = "Krishna Mittal"}
+]
+readme = "Readme.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "pydantic",
+    "ollama"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
