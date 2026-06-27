@@ -24,6 +24,9 @@ export default function Dashboard() {
   const [evidenceFile, setEvidenceFile] = useState(null);
   const [evidenceResult, setEvidenceResult] = useState(null);
   const [expandedRow, setExpandedRow] = useState(null);
+  
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  const filteredData = dashboardData.filter(d => selectedDepartment === "All" || d.department === selectedDepartment);
 
   const fetchDashboardData = async () => {
     try {
@@ -325,6 +328,39 @@ export default function Dashboard() {
                         </div>
                       </div>
                     </div>
+
+                    <div className="flex justify-between items-center mb-4">
+                      <div className="flex items-center gap-3">
+                        <span className="text-sm font-semibold text-white/60 uppercase tracking-widest">Filter by Department:</span>
+                        <select 
+                          value={selectedDepartment}
+                          onChange={(e) => setSelectedDepartment(e.target.value)}
+                          className="bg-black/40 border border-white/20 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-cyan-400 transition"
+                        >
+                          <option value="All">All Departments</option>
+                          <option value="IT & Cyber Security">IT & Cyber Security</option>
+                          <option value="Risk Management">Risk Management</option>
+                          <option value="HR & Operations">HR & Operations</option>
+                          <option value="Legal & Compliance">Legal & Compliance</option>
+                        </select>
+                      </div>
+                      <button 
+                        onClick={() => {
+                          const csvContent = "data:text/csv;charset=utf-8," + 
+                            "Priority,Regulation ID,Department,Status\n" + 
+                            filteredData.map(row => `${row.priority_score},${row.regulation_id},${row.department},${row.status}`).join("\n");
+                          const encodedUri = encodeURI(csvContent);
+                          const link = document.createElement("a");
+                          link.setAttribute("href", encodedUri);
+                          link.setAttribute("download", "regintel_compliance_report.csv");
+                          document.body.appendChild(link);
+                          link.click();
+                        }}
+                        className="bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg text-sm font-semibold text-white transition flex items-center gap-2"
+                      >
+                        <Code size={16}/> Export CSV Report
+                      </button>
+                    </div>
                   </>
                 )}
 
@@ -339,7 +375,7 @@ export default function Dashboard() {
                       </tr>
                     </thead>
                     <tbody className="bg-black/20">
-                      {dashboardData.map((row, i) => (
+                      {filteredData.map((row, i) => (
                         <tr key={i} onClick={() => setExpandedRow(row)} className="border-b border-white/5 hover:bg-white/10 transition cursor-pointer relative">
                           <td className="p-4">
                             <span className={`px-2 py-1 rounded font-bold text-xs ${row.priority_score >= 8 ? 'bg-red-500/20 text-red-400' : row.priority_score >= 5 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-green-500/20 text-green-400'}`}>
@@ -358,7 +394,7 @@ export default function Dashboard() {
                           </td>
                         </tr>
                       ))}
-                      {dashboardData.length === 0 && (
+                      {filteredData.length === 0 && (
                         <tr>
                           <td colSpan="4" className="p-8 text-center text-white/40">No records found. Parse a regulation first!</td>
                         </tr>

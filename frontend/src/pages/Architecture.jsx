@@ -201,6 +201,13 @@ export default function Architecture() {
                 <strong className="text-green-500">Example:</strong> Postgres Connection Timeout ➔ `DATABASE_URL2=sqlite:///./regintel.db` activated.
               </div>
             </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-orange-400/30 transition shadow-lg">
+              <h3 className="text-orange-400 font-bold mb-2">Advanced Reporting & Analytics</h3>
+              <p className="text-sm text-white/60 mb-3">Admins can instantly filter large regulatory queues by specific corporate Departments and generate CSV compliance reports directly from the DOM using encoded URIs.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-orange-500">Example:</strong> Admin selects "IT & Cyber Security" ➔ Maps state ➔ `encodeURI("data:text/csv...")` CSV Export.
+              </div>
+            </div>
           </div>
         </div>
 
