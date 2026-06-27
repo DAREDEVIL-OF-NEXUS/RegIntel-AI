@@ -24,7 +24,8 @@
 * **AI Vision Auditor**: Instead of humans verifying proof of compliance, officers upload photos. The platform utilizes LLaVA (Offline Vision) and Gemini Vision to algorithmically determine if the evidence matches the regulatory mandate.
 * **Swiggy-Style UX Tracker**: The stunning React frontend directly subscribes to the Graph Engine's state, visually tracking a document's progression through nodes in real time.
 * **Anti-Fraud Escalation Engine**: Restricts officers to 3 evidence upload attempts per regulation. After 6 total failures across the platform, the officer's account is permanently banned. Fraudulent uploads immediately alert the Admin dashboard.
-* **Intelligent JSON Parsing & Novice Translation**: The backend natively strips hallucinated markdown, enforcing strict schema compliance, while the MAP Agent translates complex banking jargon into highly descriptive, novice-friendly AI summaries and step-by-step recommendations.
+* **Intelligent JSON Parsing & Novice Translation**: The backend natively strips hallucinated markdown, enforcing strict schema compliance, while the MAP Agent translates complex banking jargon into highly descriptive, novice-friendly AI summaries and separated step-by-step recommendations.
+* **Dynamic MAP UI Engine**: The frontend intercepts raw JSON action plans from the LLM and mathematically splits them into beautiful Action, Metric, and Evidence UI Cards, ensuring absolute readability.
 * **Fault-Tolerant Database Integration**: Active connection probing that automatically falls back from Cloud PostgreSQL to Local SQLite during network outages.
 
 ---

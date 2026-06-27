@@ -385,13 +385,46 @@ export default function Dashboard() {
                       </div>
 
                       <div className="mb-6">
-                        <h4 className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-2">Measurable Action Point (MAP)</h4>
-                        <pre className="text-white/80 text-xs leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap overflow-hidden">{expandedRow.map}</pre>
+                        <h4 className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-4">Measurable Action Point (MAP) Details</h4>
+                        {(() => {
+                          try {
+                            const mapObj = JSON.parse(expandedRow.map);
+                            return (
+                              <div className="flex flex-col gap-3">
+                                <div className="bg-black/40 border border-purple-500/20 p-4 rounded-xl">
+                                  <div className="text-xs text-purple-400/70 uppercase tracking-widest mb-1 font-bold">Action Required</div>
+                                  <div className="text-white/90 text-sm leading-relaxed">{mapObj.map || mapObj.action}</div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <div className="bg-black/40 border border-cyan-500/20 p-4 rounded-xl">
+                                    <div className="text-xs text-cyan-400/70 uppercase tracking-widest mb-1 font-bold">Metric</div>
+                                    <div className="text-white/80 text-sm font-mono">{mapObj.metric}</div>
+                                  </div>
+                                  <div className="bg-black/40 border border-green-500/20 p-4 rounded-xl">
+                                    <div className="text-xs text-green-400/70 uppercase tracking-widest mb-1 font-bold">Evidence Required</div>
+                                    <div className="text-white/80 text-sm">{mapObj.evidence_required}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          } catch (e) {
+                            return <pre className="text-white/80 text-xs leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap overflow-hidden">{expandedRow.map}</pre>;
+                          }
+                        })()}
                       </div>
 
                       <div className="mb-8">
-                        <h4 className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-2">Step-by-Step AI Recommendation</h4>
-                        <p className="text-white/90 text-sm leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap">{expandedRow.ai_recommendation || "No recommendation available."}</p>
+                        <h4 className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-2">Step-by-Step AI Recommendation & Additions</h4>
+                        <div className="text-white/90 text-sm leading-relaxed bg-black/30 p-5 rounded-xl border border-white/10 prose prose-invert max-w-none">
+                          {expandedRow.ai_recommendation ? (
+                            expandedRow.ai_recommendation.split('\n').map((line, idx) => {
+                              if (line.match(/^\d+\./)) return <li key={idx} className="ml-4 mb-2">{line.replace(/^\d+\.\s*/, '')}</li>;
+                              if (line.startsWith('-')) return <li key={idx} className="ml-4 mb-2 text-blue-200 list-disc">{line.replace(/^-\s*/, '')}</li>;
+                              if (line.trim() === '') return <br key={idx} />;
+                              return <p key={idx} className="mb-2 font-medium">{line}</p>;
+                            })
+                          ) : "No recommendation available."}
+                        </div>
                       </div>
 
                       {expandedRow.status !== 'implemented' && (

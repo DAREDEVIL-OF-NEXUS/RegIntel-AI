@@ -180,6 +180,13 @@ export default function Architecture() {
                 <strong className="text-purple-500">Example:</strong> MAP says "Enable MFA". Officer uploads dog photo. Vision Model outputs REJECTED. `failed_attempts += 1`, Admin notified.
               </div>
             </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-pink-400/30 transition shadow-lg">
+              <h3 className="text-pink-400 font-bold mb-2">Dynamic MAP UI & AI Context Engine</h3>
+              <p className="text-sm text-white/60 mb-3">Instead of rendering raw JSON dumps, the React Frontend parses the LLM's MAP payload dynamically, rendering distinct Metric and Evidence cards. The MAP Agent strictly structures output, separating Step-by-Step execution orders from Additional Strategic Recommendations.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-pink-500">Example:</strong> `JSON.parse(map_payload)` ➔ Component maps into distinct Action, Metric, and Evidence cards.
+              </div>
+            </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition shadow-lg">
               <h3 className="text-blue-400 font-bold mb-2">Priority Queue Engine</h3>
               <p className="text-sm text-white/60 mb-3">Agents syntactically score regulatory impact severity out of 10. PostgreSQL indexes serve personalized, sorted queues for officers dynamically.</p>

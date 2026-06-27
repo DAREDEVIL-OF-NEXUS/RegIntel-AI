@@ -136,6 +136,7 @@ export default function About() {
               <PhaseCard num="9" title="Master Frontend Upgrade" desc="Overhauled the React UI. Built Role-Based Dashboards, Heatmaps, and the Swiggy-Style real-time Workflow Tracker directly subscribing to the Graph Engine." />
               <PhaseCard num="10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, created fake analytics for scale projection, and polished the architecture flowcharts." />
               <PhaseCard num="11" title="Fraud Detection & AI Nuance" desc="Implemented strict JSON parsers to prevent LLM hallucinations. Added an AI Summary and Step-by-Step Recommendation generation. Engineered an Anti-Fraud escalation system banning officers after 6 fraudulent uploads and alerting the Admin." />
+              <PhaseCard num="12" title="UI Formatting & MAP Rendering Upgrade" desc="Completely overhauled the rendering of Measurable Action Points (MAPs) on the dashboard into a beautifully formatted grid. Enhanced the AI Agent to logically separate step-by-step instructions from additional recommendations using bullet points and numbered lists." />
             </div>
           </section>
         </div>
