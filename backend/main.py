@@ -28,12 +28,12 @@ def seed_db_if_empty():
             dept = random.choice(departments)
             score = random.randint(1, 10)
             status = random.choice(statuses)
-            repo.create_log(
+            repo.save_workflow_log(
                 regulation=f"Dummy Regulation #{i+1} concerning {dept.lower()} requirements.",
-                parsed_output=f"{{\"intent\": \"enforce {dept.lower()} compliance\"}}",
-                map_output=f"{{\"action\": \"Audit {dept.lower()} systems within 30 days\"}}",
-                department_output=dept,
-                validation_output=f"{{\"status\": \"{status}\"}}",
+                parsed=f"{{\"intent\": \"enforce {dept.lower()} compliance\"}}",
+                map_val=f"{{\"action\": \"Audit {dept.lower()} systems within 30 days\"}}",
+                department=dept,
+                validation=f"{{\"status\": \"{status}\"}}",
                 priority_score=score,
                 status=status
             )
