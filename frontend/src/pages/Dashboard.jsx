@@ -38,6 +38,38 @@ export default function Dashboard() {
     setWorkflowResult(null);
   };
 
+  const handlePdfUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    try {
+      const res = await axios.post(`${API_URL}/upload-pdf`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setRegulation(res.data.text);
+    } catch (err) {
+      alert("Failed to extract PDF: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const handleScrape = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/scrape`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert(`Successfully scraped ${res.data.data.length} recent circulars (Check console).`);
+      console.log(res.data.data);
+    } catch (err) {
+      alert("Failed to scrape: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
   const runWorkflow = async () => {
     setLoading(true);
     try {
@@ -145,12 +177,22 @@ export default function Dashboard() {
               <div className="flex flex-col h-full gap-6">
                 <div>
                   <h2 className="text-2xl font-bold mb-1">Analyze Regulation</h2>
-                  <p className="text-white/50 text-sm">Input raw regulatory text to trigger the multi-agent graph workflow.</p>
+                  <p className="text-white/50 text-sm">Input raw regulatory text or upload a PDF to trigger the multi-agent graph workflow.</p>
+                </div>
+
+                <div className="flex gap-4">
+                  <label className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold py-2 px-6 rounded-lg cursor-pointer transition flex items-center gap-2 text-sm shadow-inner">
+                    <UploadCloud size={16} /> Upload Offline PDF
+                    <input type="file" accept=".pdf" className="hidden" onChange={handlePdfUpload} />
+                  </label>
+                  <button onClick={handleScrape} className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold py-2 px-6 rounded-lg transition flex items-center gap-2 text-sm shadow-inner">
+                    <Activity size={16} /> Scrape RBI (Online)
+                  </button>
                 </div>
                 
                 <textarea 
                   className="w-full h-48 bg-black/30 border border-white/10 rounded-xl p-5 text-white outline-none focus:border-cyan-400/80 focus:bg-black/50 transition-all resize-none shadow-inner leading-relaxed"
-                  placeholder="Paste RBI, SEBI, or SEC circular text here..."
+                  placeholder="Paste RBI, SEBI, or SEC circular text here... or use the buttons above."
                   value={regulation}
                   onChange={(e) => setRegulation(e.target.value)}
                 />

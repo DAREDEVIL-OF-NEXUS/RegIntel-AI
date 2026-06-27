@@ -5,3 +5,7 @@ pydantic
 ollama
 psycopg2-binary
 python-dotenv
+pymupdf
+beautifulsoup4
+requests
+google-generativeai

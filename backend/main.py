@@ -49,14 +49,14 @@ def root():
 # =====================================
 @app.post("/login")
 def login(req: LoginRequest):
-    # Mock authentication logic
     if req.username == "admin" and req.password == "admin123":
-        token = create_access_token(username="admin", role="admin")
+        token = create_access_token({"sub": req.username, "role": "admin"})
+        return {"access_token": token, "token_type": "bearer"}
     elif req.username == "officer" and req.password == "officer123":
-        token = create_access_token(username="officer", role="officer")
+        token = create_access_token({"sub": req.username, "role": "officer"})
+        return {"access_token": token, "token_type": "bearer"}
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    return {"access_token": token, "token_type": "bearer"}
 
 # =====================================
 # Agent Endpoints
@@ -80,6 +80,32 @@ def assign(req: DepartmentRequest):
 def validate(req: DepartmentRequest):
     result = validate_map(req.map_text)
     return {"result": result}
+
+from fastapi import UploadFile, File
+from utils.pdf_parser import extract_text_from_pdf
+from utils.scraper import scrape_rbi_notifications
+
+@app.post("/upload-pdf")
+async def upload_pdf(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
+    """Extracts text from an uploaded PDF file offline."""
+    if not file.filename.endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="Only PDF files are supported.")
+    
+    contents = await file.read()
+    try:
+        text = extract_text_from_pdf(contents)
+        return {"status": "success", "text": text}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/scrape")
+def scrape_rbi(current_user: dict = Depends(get_current_user)):
+    """Online fallback to scrape latest RBI circulars."""
+    try:
+        links = scrape_rbi_notifications()
+        return {"status": "success", "data": links}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # =====================================
 # Orchestration & Features
