@@ -67,41 +67,45 @@ export default function About() {
           </section>
 
           <section className="relative z-10 group mt-16">
-            <h2 className="text-3xl font-extrabold text-white mb-6 flex items-center gap-4 group-hover:text-yellow-400 transition-colors tracking-tight">
+            <h2 className="text-3xl font-extrabold text-white mb-8 flex items-center gap-4 group-hover:text-yellow-400 transition-colors tracking-tight">
               <div className="p-4 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-2xl border border-yellow-500/30 group-hover:border-yellow-400 shadow-[0_0_20px_rgba(234,179,8,0.2)] group-hover:shadow-[0_0_30px_rgba(234,179,8,0.4)] transition-all">
                 <Code2 className="text-yellow-400" size={32} />
               </div>
               Development Phases & Execution
             </h2>
-            <div className="pl-16 border-l-4 border-yellow-500/30 group-hover:border-yellow-400 transition-colors py-4 space-y-6">
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 1-3: Core Infrastructure</h4>
-                <p className="text-sm text-white/60">Set up the custom Graph Orchestrator replacing LangChain. Built the FastAPI backend, SQLAlchemy database, and React/Vite frontend.</p>
-              </div>
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 4-5: Agents & Auth</h4>
-                <p className="text-sm text-white/60">Implemented the Parser, MAP Generator, and Department Assigner Agents using Ollama. Integrated JWT Role-Based Access Control (RBAC).</p>
-              </div>
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 6: Ingestion & Resilience</h4>
-                <p className="text-sm text-white/60">Built offline PDF extraction, Web Scraping fallbacks, and the crucial Dual-LLM Gateway to fallback to Gemini if Ollama crashes.</p>
-              </div>
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 7: Priority Engine</h4>
-                <p className="text-sm text-white/60">Programmed the AI to syntactically evaluate regulation severity and assign a 1-10 score, dynamically sorting the PostgreSQL queues.</p>
-              </div>
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 8: Vision Auditor</h4>
-                <p className="text-sm text-white/60">Deployed LLaVA (with Gemini Vision fallback) to algorithmically validate uploaded photographic evidence against Action Points.</p>
-              </div>
-              <div>
-                <h4 className="text-yellow-400 font-bold mb-1">Phase 9-10: Master Frontend & Grand Polish</h4>
-                <p className="text-sm text-white/60">Engineered the Swiggy-Style real-time workflow tracker, glassmorphism UI, heatmap dashboard, and exhaustive technical documentation.</p>
-              </div>
+            <div className="space-y-6">
+              <PhaseCard num="1" title="Initial System Setup" desc="Initialized FastAPI, PostgreSQL, and React. Configured the modular monolithic structure for scalable micro-agent deployment." />
+              <PhaseCard num="2" title="Database Architecture" desc="Built SQLAlchemy ORMs with Active-Probing Failovers. Designed schemas to log Workflow States, saving AI generation output directly to the DB." />
+              <PhaseCard num="3" title="Graph Orchestrator Engine" desc="Rejected LangChain due to overhead. Developed a custom, lightweight State Graph engine from scratch to handle agent routing and infinite-loop protection." />
+              <PhaseCard num="4" title="Parser & MAP Agents" desc="Integrated Ollama (LLaMA3). Engineered the NLP prompt pipelines to ingest raw legalese and generate strictly formatted Measurable Action Points (MAPs) in JSON." />
+              <PhaseCard num="5" title="Department & JWT Auth" desc="Added an Agent to map regulations to specific departments (e.g., IT, Risk). Built Enterprise JWT Role-Based Access Control (RBAC) to separate Admin and Officer views." />
+              <PhaseCard num="6" title="Ingestion & Dual-LLM Resiliency" desc="Added offline PDF extraction and Web Scraping. Built the mission-critical Dual-LLM Gateway: automatically falling back to Gemini 1.5 Flash if the local GPU crashes." />
+              <PhaseCard num="7" title="Priority Engine" desc="Programmed the AI to syntactically evaluate regulation severity. Generates a Priority Score (1-10) to dynamically sort the PostgreSQL queues for Officers." />
+              <PhaseCard num="8" title="Vision Auditor Pipeline" desc="Deployed LLaVA and Gemini Vision models to algorithmically validate uploaded photographic evidence against the AI-generated Action Points, creating a fully closed-loop system." />
+              <PhaseCard num="9" title="Master Frontend Upgrade" desc="Overhauled the React UI. Built Role-Based Dashboards, Heatmaps, and the Swiggy-Style real-time Workflow Tracker directly subscribing to the Graph Engine." />
+              <PhaseCard num="10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, created fake analytics for scale projection, and polished the architecture flowcharts." />
             </div>
           </section>
         </div>
       </motion.div>
+    </div>
+  );
+}
+
+function PhaseCard({ num, title, desc }) {
+  return (
+    <div className="flex flex-col md:flex-row items-start md:items-center gap-6 glass-panel p-6 border border-white/5 hover:border-yellow-400/30 transition-colors shadow-lg group">
+      <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-black text-2xl group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(234,179,8,0.2)]">
+        {num}
+      </div>
+      <div>
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors tracking-tight">
+          {title}
+        </h3>
+        <p className="text-white/60 leading-relaxed text-sm">
+          {desc}
+        </p>
+      </div>
     </div>
   );
 }

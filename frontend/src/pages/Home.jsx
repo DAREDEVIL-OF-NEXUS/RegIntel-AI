@@ -95,11 +95,17 @@ export default function Home() {
 
       <div className="mt-32 w-full max-w-5xl relative z-10 mb-20">
         <h2 className="text-3xl font-bold text-center mb-10 tracking-wide text-white">Development Roadmap</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <RoadmapCard phase="Phase 6" title="Ingestion & Resilience" desc="PDF Uploads, Web Scraping, & Gemini LLM Fallback." />
-          <RoadmapCard phase="Phase 7" title="Priority Engine" desc="Dynamic Priority Scoring (1-10) for regulations." />
-          <RoadmapCard phase="Phase 8" title="Vision Auditor" desc="Automated Evidence validation using LLaVA/Gemini Vision." />
-          <RoadmapCard phase="Phase 9" title="Role-Based UX" desc="Admin Heatmaps & Swiggy-style visual workflow tracking." />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <RoadmapCard phase="Phase 1" title="Infrastructure" desc="FastAPI & DB." />
+          <RoadmapCard phase="Phase 2" title="Database" desc="State logging." />
+          <RoadmapCard phase="Phase 3" title="Graph Engine" desc="Custom Orchestrator." />
+          <RoadmapCard phase="Phase 4" title="Parser" desc="LLaMA3 MAP extraction." />
+          <RoadmapCard phase="Phase 5" title="Auth & RBAC" desc="JWT JWT integration." />
+          <RoadmapCard phase="Phase 6" title="Resilience" desc="Dual-LLM Failovers." />
+          <RoadmapCard phase="Phase 7" title="Priority Engine" desc="Dynamic 1-10 Queue." />
+          <RoadmapCard phase="Phase 8" title="Vision Auditor" desc="LLaVA Photo checks." />
+          <RoadmapCard phase="Phase 9" title="UX Dashboards" desc="Swiggy-style tracker." />
+          <RoadmapCard phase="Phase 10" title="The Polish" desc="Glassmorphism UI." />
         </div>
       </div>
     </div>
