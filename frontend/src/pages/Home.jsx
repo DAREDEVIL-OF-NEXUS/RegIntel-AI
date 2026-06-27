@@ -14,14 +14,16 @@ export default function Home() {
         <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-400 text-sm font-semibold tracking-wide uppercase shadow-[0_0_20px_rgba(0,243,255,0.2)]">
           Revolutionizing Regulatory Compliance
         </div>
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
-          Automate Compliance with <br/>
+        <h1 className="text-6xl md:text-8xl font-extrabold mb-8 leading-tight tracking-tight">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 drop-shadow-[0_0_30px_rgba(0,243,255,0.3)]">
-            Agentic Intelligence
+            RegIntel-AI
           </span>
         </h1>
-        <p className="text-xl text-white/60 mb-12 leading-relaxed max-w-2xl mx-auto">
-          RegIntel AI ingests massive regulatory circulars, extracts measurable action points (MAPs), assigns departments, and validates evidence—all offline, secure, and fully autonomous.
+        <p className="text-xl text-white/80 font-semibold mb-4 leading-relaxed max-w-2xl mx-auto text-cyan-50">
+          Automate Compliance with Agentic Intelligence.
+        </p>
+        <p className="text-lg text-white/60 mb-12 leading-relaxed max-w-2xl mx-auto">
+          Ingests massive regulatory circulars, extracts measurable action points (MAPs), assigns departments, and validates evidence—all offline, secure, and fully autonomous.
         </p>
         <div className="flex justify-center gap-6">
           <Link to="/dashboard">
