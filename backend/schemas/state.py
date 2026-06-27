@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any
+from typing import Optional
 from pydantic import BaseModel, Field
 
 class WorkflowState(BaseModel):
@@ -7,6 +7,8 @@ class WorkflowState(BaseModel):
     Every agent will read from and update this state instead of passing raw strings.
     """
     regulation_text: str = Field(default="", description="The original regulation text.")
+    historical_context: str = Field(default="", description="Relevant historical regulations retrieved from Knowledge Layer.")
+    
     parsed_output: str = Field(default="", description="JSON string or dict of parsed obligation, deadline, risk.")
     map_output: str = Field(default="", description="Generated Measurable Action Point (MAP).")
     department_output: str = Field(default="", description="Assigned department.")

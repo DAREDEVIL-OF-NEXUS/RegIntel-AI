@@ -1,6 +1,6 @@
 from services.llm_gateway import LLMGateway
 
-def parse_regulation(text: str) -> str:
+def parse_regulation(text: str, historical_context: str = "") -> str:
     prompt = f"""
     You are a banking compliance expert.
 
@@ -12,8 +12,10 @@ def parse_regulation(text: str) -> str:
 
     Return JSON only.
 
-    Regulation:
+    Historical Context (Past related regulations):
+    {historical_context}
 
+    Current Regulation:
     {text}
     """
     return LLMGateway.generate(prompt)
