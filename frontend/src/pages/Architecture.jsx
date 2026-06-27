@@ -75,23 +75,23 @@ export default function Architecture() {
         </div>
 
         <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">Upcoming Architectural Marvels</h2>
+          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">Implemented Architectural Marvels</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-cyan-400/30 transition">
-              <h3 className="text-cyan-400 font-bold mb-2">Dual-LLM Failover</h3>
-              <p className="text-sm text-white/60">If the offline local Ollama node crashes or lacks resources, the API Gateway will instantly reroute requests to Gemini 1.5 Flash via a secure cloud tunnel.</p>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-cyan-400/30 transition shadow-lg">
+              <h3 className="text-cyan-400 font-bold mb-2">Dual-LLM Transparent Failover</h3>
+              <p className="text-sm text-white/60">If the offline local Ollama node crashes or lacks resources, the API Gateway instantly reroutes requests to Gemini 1.5 Flash via a secure cloud tunnel, guaranteeing 100% uptime for demos without compromising the offline-first security pledge.</p>
             </div>
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-400/30 transition">
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-400/30 transition shadow-lg">
               <h3 className="text-purple-400 font-bold mb-2">Vision Auditor Pipeline</h3>
-              <p className="text-sm text-white/60">Instead of humans verifying compliance proofs, uploaded images will be passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
+              <p className="text-sm text-white/60">Instead of humans verifying compliance proofs, uploaded images are passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
             </div>
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition">
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition shadow-lg">
               <h3 className="text-blue-400 font-bold mb-2">Priority Queue Engine</h3>
-              <p className="text-sm text-white/60">Agents will be upgraded to syntactically score regulatory impact severity out of 10. PostgreSQL indexes will serve personalized, sorted queues for officers dynamically.</p>
+              <p className="text-sm text-white/60">Agents syntactically score regulatory impact severity out of 10. PostgreSQL indexes serve personalized, sorted queues for officers dynamically.</p>
             </div>
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-green-400/30 transition">
-              <h3 className="text-green-400 font-bold mb-2">State-Driven UX</h3>
-              <p className="text-sm text-white/60">Frontend dashboards will directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion ➔ MAP Generation ➔ Audit like a Swiggy delivery tracker.</p>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-green-400/30 transition shadow-lg">
+              <h3 className="text-green-400 font-bold mb-2">State-Driven UX Tracker</h3>
+              <p className="text-sm text-white/60">Frontend dashboards directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion ➔ MAP Generation ➔ Audit like a real-time Swiggy delivery tracker.</p>
             </div>
           </div>
         </div>

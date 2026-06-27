@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { ShieldCheck, UploadCloud, Activity, LogIn, LogOut, Code, AlertTriangle } from "lucide-react";
+import { ShieldCheck, UploadCloud, Activity, LogIn, LogOut, Code, AlertTriangle, List, CheckCircle, Clock } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -10,15 +10,37 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [loginError, setLoginError] = useState("");
   
-  // Login State
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
-  // App State
   const [activeTab, setActiveTab] = useState("run");
   const [regulation, setRegulation] = useState("");
   const [workflowResult, setWorkflowResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  const [dashboardData, setDashboardData] = useState([]);
+  
+  const [evidenceMapText, setEvidenceMapText] = useState("");
+  const [evidenceFile, setEvidenceFile] = useState(null);
+  const [evidenceResult, setEvidenceResult] = useState(null);
+
+  const fetchDashboardData = async () => {
+    try {
+      const endpoint = user.role === "admin" ? "/dashboard/admin" : "/dashboard/officer";
+      const res = await axios.get(`${API_URL}${endpoint}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setDashboardData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (token && activeTab === "queue") {
+      fetchDashboardData();
+    }
+  }, [token, activeTab]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,7 +48,8 @@ export default function Dashboard() {
     try {
       const res = await axios.post(`${API_URL}/login`, { username, password });
       setToken(res.data.access_token);
-      setUser({ username, role: username });
+      const role = username === "admin" ? "admin" : "officer";
+      setUser({ username, role });
     } catch (err) {
       setLoginError("Invalid credentials. Try admin/admin123");
     }
@@ -41,16 +64,11 @@ export default function Dashboard() {
   const handlePdfUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
     const formData = new FormData();
     formData.append("file", file);
-    
     try {
       const res = await axios.post(`${API_URL}/upload-pdf`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`
-        }
+        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` }
       });
       setRegulation(res.data.text);
     } catch (err) {
@@ -80,6 +98,22 @@ export default function Dashboard() {
       setWorkflowResult(res.data);
     } catch (err) {
       alert("Error connecting to AI Backend. Ensure FastAPI is running.");
+    }
+    setLoading(false);
+  };
+
+  const submitEvidence = async () => {
+    if (!evidenceFile || !evidenceMapText) return alert("Missing file or MAP text");
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", evidenceFile);
+    try {
+      const res = await axios.post(`${API_URL}/upload-evidence?map_text=${encodeURIComponent(evidenceMapText)}`, formData, {
+        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` }
+      });
+      setEvidenceResult(res.data);
+    } catch (err) {
+      alert("Vision Auditor Failed: " + (err.response?.data?.detail || err.message));
     }
     setLoading(false);
   };
@@ -134,7 +168,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="w-full relative z-10">
+    <div className="w-full relative z-10 pb-20">
       <header className="flex justify-between items-center mb-10 bg-black/20 p-6 rounded-2xl border border-white/5 shadow-lg">
         <div className="flex items-center gap-4">
           <ShieldCheck size={36} className="text-cyan-400 drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]" />
@@ -159,9 +193,13 @@ export default function Dashboard() {
             <Activity className={activeTab === 'run' ? 'text-cyan-400' : 'text-white/50'} />
             <span className="font-semibold tracking-wide">Graph Orchestrator</span>
           </button>
+          <button onClick={() => setActiveTab("queue")} className={`glass-panel p-4 flex items-center gap-3 transition-all duration-300 ${activeTab === 'queue' ? 'border-blue-400/50 bg-blue-900/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'hover:bg-white/5 hover:border-white/20'}`}>
+            <List className={activeTab === 'queue' ? 'text-blue-400' : 'text-white/50'} />
+            <span className="font-semibold tracking-wide">{user.role === 'admin' ? "Master Dashboard" : "Priority Queue"}</span>
+          </button>
           <button onClick={() => setActiveTab("evidence")} className={`glass-panel p-4 flex items-center gap-3 transition-all duration-300 ${activeTab === 'evidence' ? 'border-purple-400/50 bg-purple-900/20 shadow-[0_0_15px_rgba(188,19,254,0.1)]' : 'hover:bg-white/5 hover:border-white/20'}`}>
             <UploadCloud className={activeTab === 'evidence' ? 'text-purple-400' : 'text-white/50'} />
-            <span className="font-semibold tracking-wide">Evidence Validator</span>
+            <span className="font-semibold tracking-wide">Vision Auditor</span>
           </button>
         </div>
 
@@ -210,40 +248,144 @@ export default function Dashboard() {
                 </motion.button>
                 
                 {workflowResult && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 bg-black/50 rounded-xl p-6 border border-white/10 overflow-auto shadow-inner relative">
-                    <div className="absolute top-4 right-4 text-white/30"><Code size={20} /></div>
-                    <h3 className="text-sm font-semibold text-cyan-400 mb-4 uppercase tracking-widest">Workflow State Output</h3>
-                    <pre className="text-sm text-cyan-50/90 font-mono leading-relaxed">{JSON.stringify(workflowResult, null, 2)}</pre>
-                  </motion.div>
+                  <div className="mt-8 flex flex-col gap-6">
+                    <h3 className="text-xl font-bold border-b border-white/10 pb-2">Swiggy-Style Workflow Tracker</h3>
+                    <div className="flex items-center justify-between relative px-10">
+                      <div className="absolute left-10 right-10 top-1/2 h-1 bg-white/10 -z-10 -translate-y-1/2 rounded-full overflow-hidden">
+                        <motion.div initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 1.5, delay: 0.2 }} className="h-full bg-gradient-to-r from-cyan-500 to-green-500"></motion.div>
+                      </div>
+                      
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(0,243,255,0.5)]"><CheckCircle size={20}/></div>
+                        <span className="text-xs font-bold text-cyan-400 uppercase">Ingested</span>
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(59,130,246,0.5)]"><CheckCircle size={20}/></div>
+                        <span className="text-xs font-bold text-blue-400 uppercase">Parsed</span>
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(188,19,254,0.5)]"><CheckCircle size={20}/></div>
+                        <span className="text-xs font-bold text-purple-400 uppercase">Assigned</span>
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(74,222,128,0.5)]"><CheckCircle size={20}/></div>
+                        <span className="text-xs font-bold text-green-400 uppercase">Validated</span>
+                      </div>
+                    </div>
+                    
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 bg-black/50 rounded-xl p-6 border border-white/10 overflow-auto shadow-inner relative">
+                      <div className="absolute top-4 right-4 text-white/30"><Code size={20} /></div>
+                      <h3 className="text-sm font-semibold text-cyan-400 mb-4 uppercase tracking-widest">Database Output Log</h3>
+                      <pre className="text-sm text-cyan-50/90 font-mono leading-relaxed">{JSON.stringify(workflowResult, null, 2)}</pre>
+                    </motion.div>
+                  </div>
                 )}
               </div>
             )}
             
+            {activeTab === "queue" && (
+              <div className="flex flex-col gap-6">
+                <div>
+                  <h2 className="text-2xl font-bold mb-1">{user.role === 'admin' ? "Master Regulatory Dashboard" : "Department Priority Queue"}</h2>
+                  <p className="text-white/50 text-sm">Real-time view of processed regulations, sorted dynamically by AI-assigned Priority Score.</p>
+                </div>
+
+                {user.role === 'admin' && (
+                  <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                      <div className="text-white/50 text-sm mb-1">Total Regulations</div>
+                      <div className="text-3xl font-bold text-cyan-400">{dashboardData.length}</div>
+                    </div>
+                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                      <div className="text-white/50 text-sm mb-1">High Priority (8-10)</div>
+                      <div className="text-3xl font-bold text-red-400">{dashboardData.filter(d => d.priority_score >= 8).length}</div>
+                    </div>
+                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                      <div className="text-white/50 text-sm mb-1">Implemented</div>
+                      <div className="text-3xl font-bold text-green-400">{dashboardData.filter(d => d.status === 'implemented').length}</div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="overflow-x-auto rounded-xl border border-white/10">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-black/50 border-b border-white/10 text-white/60 text-sm uppercase tracking-wider">
+                        <th className="p-4 font-semibold">Priority</th>
+                        <th className="p-4 font-semibold">Regulation Snippet</th>
+                        <th className="p-4 font-semibold">Department</th>
+                        <th className="p-4 font-semibold">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-black/20">
+                      {dashboardData.map((row, i) => (
+                        <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition">
+                          <td className="p-4">
+                            <span className={`px-2 py-1 rounded font-bold text-xs ${row.priority_score >= 8 ? 'bg-red-500/20 text-red-400' : row.priority_score >= 5 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-green-500/20 text-green-400'}`}>
+                              Score: {row.priority_score}/10
+                            </span>
+                          </td>
+                          <td className="p-4 text-sm text-white/80 max-w-xs truncate">{row.regulation}</td>
+                          <td className="p-4 text-sm font-medium text-purple-400">{row.department}</td>
+                          <td className="p-4">
+                            <span className={`flex items-center gap-1 text-xs font-bold uppercase tracking-wider ${row.status === 'implemented' ? 'text-green-400' : 'text-orange-400'}`}>
+                              {row.status === 'implemented' ? <CheckCircle size={14}/> : <Clock size={14}/>} {row.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                      {dashboardData.length === 0 && (
+                        <tr>
+                          <td colSpan="4" className="p-8 text-center text-white/40">No records found. Parse a regulation first!</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
             {activeTab === "evidence" && (
               <div className="flex flex-col gap-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-1">Submit Evidence</h2>
-                  <p className="text-white/50 text-sm">Upload proof of compliance to satisfy generated Measurable Action Points (MAPs).</p>
+                  <h2 className="text-2xl font-bold mb-1">Vision Auditor</h2>
+                  <p className="text-white/50 text-sm">Upload photographic proof of compliance (LLaVA/Gemini) to algorithmically satisfy Measurable Action Points (MAPs).</p>
                 </div>
                 <input 
                   type="text" 
-                  placeholder="Target MAP ID or Description..." 
+                  value={evidenceMapText}
+                  onChange={e => setEvidenceMapText(e.target.value)}
+                  placeholder="Paste the target MAP description to validate against..." 
                   className="w-full bg-black/30 border border-white/10 rounded-xl px-5 py-3 text-white outline-none focus:border-purple-400 transition"
                 />
-                <div className="border-2 border-dashed border-white/20 rounded-2xl p-16 flex flex-col items-center justify-center text-white/40 hover:text-white/80 hover:border-purple-400/50 hover:bg-purple-900/10 transition-all cursor-pointer bg-black/20 group">
+                <label className="border-2 border-dashed border-white/20 rounded-2xl p-16 flex flex-col items-center justify-center text-white/40 hover:text-white/80 hover:border-purple-400/50 hover:bg-purple-900/10 transition-all cursor-pointer bg-black/20 group">
                   <motion.div whileHover={{ y: -5 }}>
                     <UploadCloud size={56} className="mb-4 text-white/30 group-hover:text-purple-400 transition-colors" />
                   </motion.div>
-                  <p className="font-medium text-lg">Drag & Drop evidence files here</p>
-                  <p className="text-sm mt-2 text-white/30">Supports PDF, DOCX, PNG, JPG</p>
-                </div>
+                  <p className="font-medium text-lg">{evidenceFile ? evidenceFile.name : "Drag & Drop evidence photos here"}</p>
+                  <p className="text-sm mt-2 text-white/30">Supports PNG, JPG (Vision Models)</p>
+                  <input type="file" accept="image/*" className="hidden" onChange={e => setEvidenceFile(e.target.files[0])} />
+                </label>
                 <motion.button 
+                  onClick={submitEvidence}
+                  disabled={loading || !evidenceFile}
                   whileHover={{ scale: 1.01, boxShadow: "0 0 15px rgba(188, 19, 254, 0.3)" }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-purple-600/90 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-xl self-start transition-all"
+                  className="bg-purple-600/90 hover:bg-purple-500 disabled:opacity-50 text-white font-bold py-3 px-8 rounded-xl self-start transition-all"
                 >
-                  Run Evidence Validation Agent
+                  {loading ? "AI Vision Processing..." : "Run Vision Validator"}
                 </motion.button>
+
+                {evidenceResult && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`mt-4 rounded-xl p-6 border ${evidenceResult.status === 'APPROVED' ? 'bg-green-900/20 border-green-500/50' : 'bg-red-900/20 border-red-500/50'}`}>
+                    <div className="flex items-center gap-3 mb-2">
+                      {evidenceResult.status === 'APPROVED' ? <CheckCircle className="text-green-400" size={24}/> : <AlertTriangle className="text-red-400" size={24}/>}
+                      <h3 className={`text-xl font-bold ${evidenceResult.status === 'APPROVED' ? 'text-green-400' : 'text-red-400'}`}>{evidenceResult.status}</h3>
+                    </div>
+                    <p className="text-white/80 mb-4">{evidenceResult.reason}</p>
+                    <div className="text-xs text-white/30 uppercase tracking-widest font-mono">Model: {evidenceResult.model_used}</div>
+                  </motion.div>
+                )}
               </div>
             )}
           </motion.div>

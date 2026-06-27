@@ -39,21 +39,26 @@ export default function Home() {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32 w-full relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-32 w-full relative z-10">
         <FeatureCard 
-          icon={<Activity size={40} className="text-cyan-400 drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]" />}
+          icon={<Activity size={32} className="text-cyan-400 drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]" />}
           title="Graph Orchestrator"
-          desc="Not a rigid script. A dynamic, state-driven workflow engine that routes, retries, and reasons through compliance documents."
+          desc="Not a rigid script. A dynamic, state-driven workflow engine that routes, retries, and reasons."
         />
         <FeatureCard 
-          icon={<Database size={40} className="text-purple-400 drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]" />}
-          title="Semantic Memory"
-          desc="Agents recall historical regulations. If a 2024 circular supersedes a 2023 rule, the AI knows immediately to highlight gaps."
+          icon={<ShieldCheck size={32} className="text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]" />}
+          title="Under-the-Hood Fallbacks"
+          desc="100% Offline-First for security. Seamlessly falls back to Gemini Cloud APIs ONLY if local GPUs fail during intense workloads."
         />
         <FeatureCard 
-          icon={<ShieldCheck size={40} className="text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]" />}
-          title="Enterprise Security"
-          desc="Role-Based Access Control, JWT Auth, and 100% offline LLM execution ensure zero banking data leakage."
+          icon={<Database size={32} className="text-purple-400 drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]" />}
+          title="Priority Engine"
+          desc="AI syntactically evaluates regulation severity. A critical cyber breach scores a 9/10, automatically jumping to the top of the queue."
+        />
+        <FeatureCard 
+          icon={<FileText size={32} className="text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />}
+          title="Vision Auditor"
+          desc="Upload photos of compliance. LLaVA Vision offline AI validates the proof against the required action point."
         />
       </div>
 
