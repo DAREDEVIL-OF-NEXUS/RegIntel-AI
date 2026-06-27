@@ -35,7 +35,7 @@ class LLMGateway:
             # Fallback logic: Gemini
             if settings.GEMINI_API_KEY:
                 try:
-                    gemini_model = genai.GenerativeModel("gemini-1.5-flash")
+                    gemini_model = genai.GenerativeModel("gemini-2.5-flash")
                     response = gemini_model.generate_content(prompt)
                     logger.info("Successfully used Gemini as fallback.")
                     return response.text

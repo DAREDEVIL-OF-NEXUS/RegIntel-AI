@@ -48,7 +48,7 @@ class EvidenceService:
             if settings.GEMINI_API_KEY:
                 try:
                     # Gemini expects specific format for bytes
-                    model = genai.GenerativeModel("gemini-1.5-flash")
+                    model = genai.GenerativeModel("gemini-2.5-flash")
                     image_parts = [
                         {
                             "mime_type": mime_type,
@@ -61,7 +61,7 @@ class EvidenceService:
                     return {
                         "status": status,
                         "reason": result_text,
-                        "model_used": "gemini-1.5-flash (cloud fallback)"
+                        "model_used": "gemini-2.5-flash (cloud fallback)"
                     }
                 except Exception as gemini_e:
                     logger.error(f"Gemini Vision failed: {gemini_e}")
