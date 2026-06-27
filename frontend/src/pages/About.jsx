@@ -66,6 +66,57 @@ export default function About() {
             </div>
           </section>
 
+          <section className="relative z-10 group mt-16 mb-16">
+            <h2 className="text-3xl font-extrabold text-white mb-8 flex items-center gap-4 group-hover:text-pink-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-pink-500/20 to-rose-500/10 rounded-2xl border border-pink-500/30 group-hover:border-pink-400 shadow-[0_0_20px_rgba(244,114,182,0.2)] group-hover:shadow-[0_0_30px_rgba(244,114,182,0.4)] transition-all">
+                <Code2 className="text-pink-400" size={32} />
+              </div>
+              The Hackathon Effort (Infographic)
+            </h2>
+            <div className="glass-panel p-8 border border-white/5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-purple-500/5 pointer-events-none"></div>
+              <h3 className="text-xl font-bold text-white mb-6 text-center">48-Hour Development Breakdown</h3>
+              <div className="flex flex-col gap-6 max-w-2xl mx-auto">
+                <div>
+                  <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                    <span>Architecture & Graph Engine</span>
+                    <span>12 Hours</span>
+                  </div>
+                  <div className="w-full bg-white/5 rounded-full h-3 overflow-hidden">
+                    <motion.div initial={{width: 0}} animate={{width: "25%"}} transition={{duration: 1}} className="bg-gradient-to-r from-pink-500 to-rose-500 h-full shadow-[0_0_10px_rgba(244,114,182,0.8)]"></motion.div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                    <span>LLM Agents & Prompt Engineering</span>
+                    <span>16 Hours</span>
+                  </div>
+                  <div className="w-full bg-white/5 rounded-full h-3 overflow-hidden">
+                    <motion.div initial={{width: 0}} animate={{width: "33%"}} transition={{duration: 1, delay: 0.2}} className="bg-gradient-to-r from-purple-400 to-indigo-500 h-full shadow-[0_0_10px_rgba(168,85,247,0.8)]"></motion.div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                    <span>React Frontend & UI Polish</span>
+                    <span>14 Hours</span>
+                  </div>
+                  <div className="w-full bg-white/5 rounded-full h-3 overflow-hidden">
+                    <motion.div initial={{width: 0}} animate={{width: "29%"}} transition={{duration: 1, delay: 0.4}} className="bg-gradient-to-r from-cyan-400 to-blue-500 h-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"></motion.div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                    <span>Deployment & Debugging</span>
+                    <span>6 Hours</span>
+                  </div>
+                  <div className="w-full bg-white/5 rounded-full h-3 overflow-hidden">
+                    <motion.div initial={{width: 0}} animate={{width: "13%"}} transition={{duration: 1, delay: 0.6}} className="bg-gradient-to-r from-green-400 to-emerald-500 h-full shadow-[0_0_10px_rgba(74,222,128,0.8)]"></motion.div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section className="relative z-10 group mt-16">
             <h2 className="text-3xl font-extrabold text-white mb-8 flex items-center gap-4 group-hover:text-yellow-400 transition-colors tracking-tight">
               <div className="p-4 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-2xl border border-yellow-500/30 group-hover:border-yellow-400 shadow-[0_0_20px_rgba(234,179,8,0.2)] group-hover:shadow-[0_0_30px_rgba(234,179,8,0.4)] transition-all">

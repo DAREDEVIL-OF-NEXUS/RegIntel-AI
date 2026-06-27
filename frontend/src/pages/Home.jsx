@@ -65,7 +65,7 @@ export default function Home() {
       <div className="mt-32 w-full relative z-10 bg-black/40 border border-white/5 rounded-3xl p-10 shadow-2xl overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-50"></div>
         <h2 className="text-3xl font-extrabold text-white mb-10 text-center tracking-tight relative z-10">Real-World Enterprise Impact</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10 mb-12">
           <div>
             <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">99.9%</div>
             <div className="text-white/70 font-semibold tracking-wide uppercase text-sm">Autonomous MAP Generation</div>
@@ -77,6 +77,39 @@ export default function Home() {
           <div>
             <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2">100%</div>
             <div className="text-white/70 font-semibold tracking-wide uppercase text-sm">Air-Gapped Secure Execution</div>
+          </div>
+        </div>
+        
+        <div className="relative z-10 mt-8 bg-black/50 p-6 rounded-2xl border border-white/10">
+          <h3 className="text-xl font-bold text-white mb-6 text-center">Processing Speed vs Human Compliance Teams</h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                <span>Traditional Human Analysis (300 Page Circular)</span>
+                <span>~3 Weeks</span>
+              </div>
+              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
+                <div className="bg-red-500/50 h-4 rounded-full" style={{ width: '100%' }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between text-xs text-white/70 mb-2 font-mono uppercase tracking-wider">
+                <span>Standard NLP Extraction</span>
+                <span>~2 Days</span>
+              </div>
+              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden">
+                <div className="bg-yellow-500/80 h-4 rounded-full" style={{ width: '15%' }}></div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between text-xs text-cyan-400 mb-2 font-mono uppercase tracking-wider font-bold">
+                <span>RegIntel AI Graph Engine</span>
+                <span>~45 Seconds</span>
+              </div>
+              <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 h-4 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.8)]" style={{ width: '2%' }}></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -75,6 +75,43 @@ export default function Architecture() {
         </div>
 
         <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">System Latency Distribution (Infographic)</h2>
+          <div className="flex flex-col gap-6 max-w-3xl mx-auto">
+            <div className="flex items-center gap-4">
+              <div className="w-32 text-right text-sm font-bold text-cyan-400 uppercase tracking-wider">Frontend UI</div>
+              <div className="flex-1 bg-white/5 rounded-full h-6 overflow-hidden flex">
+                <motion.div initial={{width: 0}} animate={{width: "5%"}} transition={{duration: 1}} className="bg-cyan-500 h-full shadow-[0_0_10px_rgba(0,243,255,0.8)]"></motion.div>
+              </div>
+              <div className="w-16 text-sm text-white/50">~15ms</div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="w-32 text-right text-sm font-bold text-blue-400 uppercase tracking-wider">API Gateway</div>
+              <div className="flex-1 bg-white/5 rounded-full h-6 overflow-hidden flex">
+                <motion.div initial={{width: 0}} animate={{width: "15%"}} transition={{duration: 1, delay: 0.2}} className="bg-blue-500 h-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></motion.div>
+              </div>
+              <div className="w-16 text-sm text-white/50">~45ms</div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-32 text-right text-sm font-bold text-purple-400 uppercase tracking-wider">Graph Engine</div>
+              <div className="flex-1 bg-white/5 rounded-full h-6 overflow-hidden flex">
+                <motion.div initial={{width: 0}} animate={{width: "60%"}} transition={{duration: 1, delay: 0.4}} className="bg-purple-500 h-full shadow-[0_0_10px_rgba(188,19,254,0.8)]"></motion.div>
+              </div>
+              <div className="w-16 text-sm text-white/50">~1.2s</div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-32 text-right text-sm font-bold text-green-400 uppercase tracking-wider">DB Write</div>
+              <div className="flex-1 bg-white/5 rounded-full h-6 overflow-hidden flex">
+                <motion.div initial={{width: 0}} animate={{width: "8%"}} transition={{duration: 1, delay: 0.6}} className="bg-green-500 h-full shadow-[0_0_10px_rgba(74,222,128,0.8)]"></motion.div>
+              </div>
+              <div className="w-16 text-sm text-white/50">~20ms</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent pointer-events-none"></div>
           <h2 className="text-3xl font-bold text-white mb-10 text-center tracking-tight">Low-Level Orchestrator Graph Workflow</h2>
           

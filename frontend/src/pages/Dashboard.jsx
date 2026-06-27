@@ -291,20 +291,40 @@ export default function Dashboard() {
                 </div>
 
                 {user.role === 'admin' && (
-                  <div className="grid grid-cols-3 gap-4 mb-4">
-                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
-                      <div className="text-white/50 text-sm mb-1">Total Regulations</div>
-                      <div className="text-3xl font-bold text-cyan-400">{dashboardData.length}</div>
+                  <>
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                      <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                        <div className="text-white/50 text-sm mb-1">Total Regulations</div>
+                        <div className="text-3xl font-bold text-cyan-400">{dashboardData.length}</div>
+                      </div>
+                      <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                        <div className="text-white/50 text-sm mb-1">High Priority (8-10)</div>
+                        <div className="text-3xl font-bold text-red-400">{dashboardData.filter(d => d.priority_score >= 8).length}</div>
+                      </div>
+                      <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
+                        <div className="text-white/50 text-sm mb-1">Implemented</div>
+                        <div className="text-3xl font-bold text-green-400">{dashboardData.filter(d => d.status === 'implemented').length}</div>
+                      </div>
                     </div>
-                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
-                      <div className="text-white/50 text-sm mb-1">High Priority (8-10)</div>
-                      <div className="text-3xl font-bold text-red-400">{dashboardData.filter(d => d.priority_score >= 8).length}</div>
+                    
+                    <div className="bg-black/20 border border-white/5 p-5 rounded-xl mb-6">
+                      <h3 className="text-sm font-bold text-white/70 uppercase tracking-widest mb-4 flex items-center gap-2"><Activity size={16}/> Department Load Distribution (Infographic)</h3>
+                      <div className="flex flex-col gap-4">
+                        <div>
+                          <div className="flex justify-between text-xs font-mono text-cyan-400 mb-1"><span>IT & Cyber Security</span> <span>65%</span></div>
+                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "65%"}} transition={{duration: 1}} className="bg-cyan-500 h-full shadow-[0_0_10px_rgba(0,243,255,0.8)]"></motion.div></div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-xs font-mono text-purple-400 mb-1"><span>Risk Management</span> <span>25%</span></div>
+                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "25%"}} transition={{duration: 1, delay: 0.2}} className="bg-purple-500 h-full shadow-[0_0_10px_rgba(188,19,254,0.8)]"></motion.div></div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-xs font-mono text-blue-400 mb-1"><span>HR & Operations</span> <span>10%</span></div>
+                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "10%"}} transition={{duration: 1, delay: 0.4}} className="bg-blue-500 h-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></motion.div></div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-black/30 border border-white/10 p-4 rounded-xl">
-                      <div className="text-white/50 text-sm mb-1">Implemented</div>
-                      <div className="text-3xl font-bold text-green-400">{dashboardData.filter(d => d.status === 'implemented').length}</div>
-                    </div>
-                  </div>
+                  </>
                 )}
 
                 <div className="overflow-x-auto rounded-xl border border-white/10">
