@@ -9,3 +9,4 @@ pymupdf
 beautifulsoup4
 requests
 google-generativeai
+python-multipart
