@@ -8,3 +8,11 @@ class MAPRequest(BaseModel):
 
 class DepartmentRequest(BaseModel):
     map_text: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class EvidenceRequest(BaseModel):
+    file_name: str
+    map_text: str
