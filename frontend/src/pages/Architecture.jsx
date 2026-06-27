@@ -174,10 +174,10 @@ export default function Architecture() {
               </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-400/30 transition shadow-lg">
-              <h3 className="text-purple-400 font-bold mb-2">Vision Auditor Pipeline</h3>
-              <p className="text-sm text-white/60 mb-3">Instead of humans verifying compliance proofs, uploaded images are passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
+              <h3 className="text-purple-400 font-bold mb-2">Vision Auditor & Fraud Escalation</h3>
+              <p className="text-sm text-white/60 mb-3">Vision Models algorithmically validate photographic evidence. If an officer uploads forged evidence, the AI rejects it. Max 3 failures per regulation, or 6 global failures before a hard ban and Admin fraud alert.</p>
               <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
-                <strong className="text-purple-500">Example:</strong> MAP says "Enable MFA". Officer uploads screenshot of Okta. Vision Model outputs: &#123;"status": "APPROVED"&#125;.
+                <strong className="text-purple-500">Example:</strong> MAP says "Enable MFA". Officer uploads dog photo. Vision Model outputs REJECTED. `failed_attempts += 1`, Admin notified.
               </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition shadow-lg">

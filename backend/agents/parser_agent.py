@@ -11,7 +11,7 @@ def parse_regulation(text: str, historical_context: str = "") -> str:
     3. Risk Level
     4. Priority_Score_1_to_10 (Evaluate urgency, penalty risks, e.g. Cyber breach = 9, minor filing = 2)
 
-    Return JSON only.
+    Return JSON only. Do NOT wrap in markdown blocks like ```json.
 
     Historical Context (Past related regulations):
     {historical_context}

@@ -6,7 +6,7 @@ You are a banking compliance auditor.
 
 Review the MAP below.
 
-Return JSON only.
+Return JSON only. Do NOT wrap in markdown blocks like ```json.
 
 Format:
 

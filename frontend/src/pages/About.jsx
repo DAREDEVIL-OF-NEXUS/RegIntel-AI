@@ -135,6 +135,7 @@ export default function About() {
               <PhaseCard num="8" title="Vision Auditor Pipeline" desc="Deployed LLaVA and Gemini Vision models to algorithmically validate uploaded photographic evidence against the AI-generated Action Points, creating a fully closed-loop system." />
               <PhaseCard num="9" title="Master Frontend Upgrade" desc="Overhauled the React UI. Built Role-Based Dashboards, Heatmaps, and the Swiggy-Style real-time Workflow Tracker directly subscribing to the Graph Engine." />
               <PhaseCard num="10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, created fake analytics for scale projection, and polished the architecture flowcharts." />
+              <PhaseCard num="11" title="Fraud Detection & AI Nuance" desc="Implemented strict JSON parsers to prevent LLM hallucinations. Added an AI Summary and Step-by-Step Recommendation generation. Engineered an Anti-Fraud escalation system banning officers after 6 fraudulent uploads and alerting the Admin." />
             </div>
           </section>
         </div>

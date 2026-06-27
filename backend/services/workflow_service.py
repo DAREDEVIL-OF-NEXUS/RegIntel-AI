@@ -39,6 +39,17 @@ class WorkflowService:
         
         return g
 
+    def _clean_json(self, text: str) -> str:
+        if not text: return "{}"
+        text = text.strip()
+        if text.startswith("```json"):
+            text = text[7:]
+        if text.startswith("```"):
+            text = text[3:]
+        if text.endswith("```"):
+            text = text[:-3]
+        return text.strip()
+
     def execute_workflow(self, text: str) -> WorkflowState:
         # Initialize the state
         initial_state = WorkflowState(regulation_text=text)
@@ -48,14 +59,33 @@ class WorkflowService:
 
         # Save to DB if completed successfully
         if final_state.status != "error":
-            # Attempt to extract priority score if agent output it in JSON, else default 5
+            import json
+            import uuid
+            
+            # Clean all outputs
+            final_state.parsed_output = self._clean_json(final_state.parsed_output)
+            final_state.map_output = self._clean_json(final_state.map_output)
+            final_state.department_output = self._clean_json(final_state.department_output)
+            final_state.validation_output = self._clean_json(final_state.validation_output)
+            
+            p_score = 5
             try:
-                import json
                 parsed_json = json.loads(final_state.parsed_output)
                 p_score = int(parsed_json.get("Priority_Score_1_to_10", 5))
-                final_state.priority_score = p_score
             except:
-                final_state.priority_score = 5
+                pass
+            final_state.priority_score = p_score
+            
+            ai_summary = ""
+            ai_recommendation = ""
+            try:
+                map_json = json.loads(final_state.map_output)
+                ai_summary = map_json.get("ai_summary", "")
+                ai_recommendation = map_json.get("ai_recommendation", "")
+            except:
+                pass
+
+            reg_id = f"REG-{str(uuid.uuid4())[:8].upper()}"
 
             self.repo.save_workflow_log(
                 regulation=final_state.regulation_text,
@@ -63,7 +93,10 @@ class WorkflowService:
                 map_val=final_state.map_output,
                 department=final_state.department_output,
                 validation=final_state.validation_output,
-                priority_score=final_state.priority_score
+                priority_score=final_state.priority_score,
+                ai_summary=ai_summary,
+                ai_recommendation=ai_recommendation,
+                regulation_id_str=reg_id
             )
 
         return final_state

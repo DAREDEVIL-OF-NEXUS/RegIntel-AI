@@ -18,3 +18,4 @@ class WorkflowState(BaseModel):
     # Metadata for routing and history
     status: str = Field(default="pending", description="Current status of the workflow.")
     error_message: Optional[str] = Field(default=None, description="Any error encountered during execution.")
+    regulation_id_str: str = Field(default="", description="Unique regulation ID generated upon completion.")

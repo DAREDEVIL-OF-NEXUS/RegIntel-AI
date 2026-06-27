@@ -28,6 +28,7 @@ def seed_db_if_empty():
             dept = random.choice(departments)
             score = random.randint(1, 10)
             status = random.choice(statuses)
+            import uuid
             repo.save_workflow_log(
                 regulation=f"Dummy Regulation #{i+1} concerning {dept.lower()} requirements.",
                 parsed=f"{{\"intent\": \"enforce {dept.lower()} compliance\"}}",
@@ -35,7 +36,10 @@ def seed_db_if_empty():
                 department=dept,
                 validation=f"{{\"status\": \"{status}\"}}",
                 priority_score=score,
-                status=status
+                status=status,
+                ai_summary="This is a summary for novice users.",
+                ai_recommendation="Step 1: Audit. Step 2: Implement. Step 3: Monitor.",
+                regulation_id_str=f"REG-{str(uuid.uuid4())[:8].upper()}"
             )
     db.close()
 
@@ -148,6 +152,7 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
         return {"error": state.error_message}
         
     return {
+        "id": state.regulation_id_str if hasattr(state, "regulation_id_str") else None,
         "parsed": state.parsed_output,
         "map": state.map_output,
         "department": state.department_output,
@@ -158,15 +163,51 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
 
 @app.post("/upload-evidence")
 async def upload_evidence(
-    map_text: str, 
+    regulation_id_str: str, 
     file: UploadFile = File(...), 
+    db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
-    """Uses LLaVA or Gemini Vision to validate photographic proof of compliance."""
+    """Uses LLaVA or Gemini Vision to validate photographic proof of compliance and tracks fraud attempts."""
+    repo = WorkflowRepository(db)
+    log = repo.get_log_by_reg_id(regulation_id_str)
+    
+    if not log:
+        raise HTTPException(status_code=404, detail="Regulation not found.")
+        
+    user_stats = repo.get_user_stats(current_user["username"])
+    if user_stats.is_banned:
+        raise HTTPException(status_code=403, detail="Your account has been banned due to repeated fraudulent evidence uploads.")
+        
+    if log.failed_attempts >= 3:
+        raise HTTPException(status_code=403, detail="Maximum evidence upload attempts (3) exceeded for this regulation.")
+
     contents = await file.read()
     try:
-        result = EvidenceService.validate_evidence(contents, file.content_type, map_text)
-        return result
+        result = EvidenceService.validate_evidence(contents, file.content_type, log.map_output)
+        
+        if result["status"] == "REJECTED":
+            log.failed_attempts += 1
+            log.is_escalated = 1
+            user_stats.total_failed_attempts += 1
+            
+            if user_stats.total_failed_attempts >= 6:
+                user_stats.is_banned = 1
+                
+            repo.db.commit()
+            return {
+                "status": "REJECTED",
+                "escalated": True,
+                "reason": result["reason"],
+                "failed_attempts": log.failed_attempts
+            }
+        else:
+            log.status = "implemented"
+            repo.db.commit()
+            return {
+                "status": "APPROVED",
+                "reason": result["reason"]
+            }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -183,12 +224,17 @@ def admin_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(
     for log in sorted_logs:
         results.append({
             "id": log.id,
+            "regulation_id": log.regulation_id_str,
             "regulation": log.regulation[:100] + "...", # Truncate for UI
             "parsed": log.parsed_output,
             "map": log.map_output,
+            "ai_summary": log.ai_summary,
+            "ai_recommendation": log.ai_recommendation,
             "department": log.department_output,
             "priority_score": log.priority_score,
-            "status": log.status
+            "status": log.status,
+            "is_escalated": bool(log.is_escalated),
+            "failed_attempts": log.failed_attempts
         })
     return results
 
@@ -206,10 +252,14 @@ def officer_dashboard(db: Session = Depends(get_db), current_user: dict = Depend
     for log in sorted_logs:
         results.append({
             "id": log.id,
+            "regulation_id": log.regulation_id_str,
             "regulation": log.regulation[:100] + "...", 
             "map": log.map_output,
+            "ai_summary": log.ai_summary,
+            "ai_recommendation": log.ai_recommendation,
             "department": log.department_output,
             "priority_score": log.priority_score,
-            "status": log.status
+            "status": log.status,
+            "is_escalated": bool(log.is_escalated)
         })
     return results

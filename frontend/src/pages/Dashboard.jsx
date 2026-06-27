@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [evidenceMapText, setEvidenceMapText] = useState("");
   const [evidenceFile, setEvidenceFile] = useState(null);
   const [evidenceResult, setEvidenceResult] = useState(null);
+  const [expandedRow, setExpandedRow] = useState(null);
 
   const fetchDashboardData = async () => {
     try {
@@ -108,7 +109,7 @@ export default function Dashboard() {
     const formData = new FormData();
     formData.append("file", evidenceFile);
     try {
-      const res = await axios.post(`${API_URL}/upload-evidence?map_text=${encodeURIComponent(evidenceMapText)}`, formData, {
+      const res = await axios.post(`${API_URL}/upload-evidence?regulation_id_str=${encodeURIComponent(evidenceMapText)}`, formData, {
         headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` }
       });
       setEvidenceResult(res.data);
@@ -339,18 +340,21 @@ export default function Dashboard() {
                     </thead>
                     <tbody className="bg-black/20">
                       {dashboardData.map((row, i) => (
-                        <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition">
+                        <tr key={i} onClick={() => setExpandedRow(row)} className="border-b border-white/5 hover:bg-white/10 transition cursor-pointer relative">
                           <td className="p-4">
                             <span className={`px-2 py-1 rounded font-bold text-xs ${row.priority_score >= 8 ? 'bg-red-500/20 text-red-400' : row.priority_score >= 5 ? 'bg-yellow-500/20 text-yellow-400' : 'bg-green-500/20 text-green-400'}`}>
                               Score: {row.priority_score}/10
                             </span>
                           </td>
-                          <td className="p-4 text-sm text-white/80 max-w-xs truncate">{row.regulation}</td>
+                          <td className="p-4 text-sm text-white/80 max-w-xs truncate">{row.regulation_id ? <span className="font-mono text-cyan-400 mr-2">[{row.regulation_id}]</span> : null}{row.regulation}</td>
                           <td className="p-4 text-sm font-medium text-purple-400">{row.department}</td>
-                          <td className="p-4">
+                          <td className="p-4 flex items-center gap-2">
                             <span className={`flex items-center gap-1 text-xs font-bold uppercase tracking-wider ${row.status === 'implemented' ? 'text-green-400' : 'text-orange-400'}`}>
                               {row.status === 'implemented' ? <CheckCircle size={14}/> : <Clock size={14}/>} {row.status}
                             </span>
+                            {row.is_escalated && (
+                              <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold animate-pulse">FRAUD ALERT</span>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -362,6 +366,51 @@ export default function Dashboard() {
                     </tbody>
                   </table>
                 </div>
+
+                {expandedRow && (
+                  <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                    <div className="glass-panel max-w-2xl w-full p-8 relative border-cyan-500/30 shadow-[0_0_50px_rgba(0,243,255,0.15)] max-h-[90vh] overflow-y-auto">
+                      <button onClick={() => setExpandedRow(null)} className="absolute top-4 right-4 text-white/50 hover:text-white"><LogOut className="rotate-180" size={24}/></button>
+                      
+                      <div className="flex items-center gap-3 mb-6">
+                        <span className="bg-cyan-500/20 text-cyan-400 font-mono px-3 py-1 rounded font-bold text-sm">{expandedRow.regulation_id}</span>
+                        <span className={`flex items-center gap-1 text-sm font-bold uppercase tracking-wider ${expandedRow.status === 'implemented' ? 'text-green-400' : 'text-orange-400'}`}>
+                          {expandedRow.status === 'implemented' ? <CheckCircle size={16}/> : <Clock size={16}/>} {expandedRow.status}
+                        </span>
+                      </div>
+                      
+                      <div className="mb-6">
+                        <h4 className="text-cyan-400 font-bold uppercase tracking-widest text-xs mb-2">Novice AI Summary</h4>
+                        <p className="text-white/90 text-sm leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5">{expandedRow.ai_summary || "No summary available."}</p>
+                      </div>
+
+                      <div className="mb-6">
+                        <h4 className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-2">Measurable Action Point (MAP)</h4>
+                        <pre className="text-white/80 text-xs leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap overflow-hidden">{expandedRow.map}</pre>
+                      </div>
+
+                      <div className="mb-8">
+                        <h4 className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-2">Step-by-Step AI Recommendation</h4>
+                        <p className="text-white/90 text-sm leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap">{expandedRow.ai_recommendation || "No recommendation available."}</p>
+                      </div>
+
+                      {expandedRow.status !== 'implemented' && (
+                        <div className="flex gap-4">
+                          <button 
+                            onClick={() => {
+                              setEvidenceMapText(expandedRow.regulation_id);
+                              setExpandedRow(null);
+                              setActiveTab("evidence");
+                            }}
+                            className="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition w-full justify-center"
+                          >
+                            <UploadCloud size={18}/> Upload Evidence for this Regulation
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
               </div>
             )}
 
@@ -375,7 +424,7 @@ export default function Dashboard() {
                   type="text" 
                   value={evidenceMapText}
                   onChange={e => setEvidenceMapText(e.target.value)}
-                  placeholder="Paste the target MAP description to validate against..." 
+                  placeholder="Paste the target Regulation ID (e.g., REG-XXXXX) to validate against..." 
                   className="w-full bg-black/30 border border-white/10 rounded-xl px-5 py-3 text-white outline-none focus:border-purple-400 transition"
                 />
                 <label className="border-2 border-dashed border-white/20 rounded-2xl p-16 flex flex-col items-center justify-center text-white/40 hover:text-white/80 hover:border-purple-400/50 hover:bg-purple-900/10 transition-all cursor-pointer bg-black/20 group">

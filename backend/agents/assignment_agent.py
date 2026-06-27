@@ -15,7 +15,7 @@ def assign_department(map_text: str) -> str:
     - IT Infrastructure
     - Internal Audit
 
-    Return JSON only.
+    Return JSON only. Do NOT wrap in markdown blocks like ```json.
 
     Format:
 

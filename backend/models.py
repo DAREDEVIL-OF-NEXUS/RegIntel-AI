@@ -19,8 +19,27 @@ class WorkflowLog(Base):
     
     priority_score = Column(Integer, default=5)
     
+    regulation_id_str = Column(String, index=True)
+    
+    ai_summary = Column(Text, nullable=True)
+    
+    ai_recommendation = Column(Text, nullable=True)
+    
+    failed_attempts = Column(Integer, default=0)
+    
+    is_escalated = Column(Integer, default=0) # 0 False, 1 True
+    
+    assigned_officer = Column(String, nullable=True)
+    
     status = Column(String, default="pending")
 
+class UserStats(Base):
+    __tablename__ = "user_stats"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    department = Column(String, nullable=True)
+    total_failed_attempts = Column(Integer, default=0)
+    is_banned = Column(Integer, default=0)
 
 class Regulation(Base):
     __tablename__ = "regulations"
