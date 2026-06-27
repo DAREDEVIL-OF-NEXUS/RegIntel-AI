@@ -145,11 +145,16 @@ export default function About() {
 
 function PhaseCard({ num, title, desc }) {
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center gap-6 glass-panel p-6 border border-white/5 hover:border-yellow-400/30 transition-colors shadow-lg group">
-      <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-black text-2xl group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(234,179,8,0.2)]">
+    <motion.div 
+      whileHover={{ scale: 1.02, x: 10, boxShadow: "0 10px 30px -10px rgba(234,179,8,0.3)" }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="flex flex-col md:flex-row items-start md:items-center gap-6 glass-panel p-6 border border-white/5 hover:border-yellow-400/30 transition-colors shadow-lg group relative overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-black text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-[0_0_15px_rgba(234,179,8,0.2)] relative z-10">
         {num}
       </div>
-      <div>
+      <div className="relative z-10">
         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors tracking-tight">
           {title}
         </h3>
@@ -157,6 +162,6 @@ function PhaseCard({ num, title, desc }) {
           {desc}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

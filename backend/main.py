@@ -17,7 +17,36 @@ from agents.validator_agent import validate_map
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="RegIntel AI")
+def seed_db_if_empty():
+    db = SessionLocal()
+    repo = WorkflowRepository(db)
+    if len(repo.get_all_logs()) < 20:
+        import random
+        departments = ["IT & Cyber Security", "Risk Management", "HR & Operations", "Legal & Compliance", "Finance"]
+        statuses = ["pending", "implemented", "in-progress"]
+        for i in range(20):
+            dept = random.choice(departments)
+            score = random.randint(1, 10)
+            status = random.choice(statuses)
+            repo.create_log(
+                regulation=f"Dummy Regulation #{i+1} concerning {dept.lower()} requirements.",
+                parsed_output=f"{{\"intent\": \"enforce {dept.lower()} compliance\"}}",
+                map_output=f"{{\"action\": \"Audit {dept.lower()} systems within 30 days\"}}",
+                department_output=dept,
+                validation_output=f"{{\"status\": \"{status}\"}}",
+                priority_score=score,
+                status=status
+            )
+    db.close()
+
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    seed_db_if_empty()
+    yield
+
+app = FastAPI(title="RegIntel AI", lifespan=lifespan)
 
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
