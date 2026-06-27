@@ -128,25 +128,59 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
     }
 
 @app.post("/upload-evidence")
-def upload_evidence(req: EvidenceRequest, current_user: dict = Depends(get_current_user)):
-    """Simulates an evidence upload and validation."""
-    result = EvidenceService.validate_evidence(req.file_name, req.map_text)
-    return result
+async def upload_evidence(
+    map_text: str, 
+    file: UploadFile = File(...), 
+    current_user: dict = Depends(get_current_user)
+):
+    """Uses LLaVA or Gemini Vision to validate photographic proof of compliance."""
+    contents = await file.read()
+    try:
+        result = EvidenceService.validate_evidence(contents, file.content_type, map_text)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/audit-logs")
-def audit_logs(db: Session = Depends(get_db), current_user: dict = Depends(require_admin)):
-    """Only admins can view full audit logs."""
+@app.get("/dashboard/admin")
+def admin_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(require_admin)):
+    """Admin dashboard fetches all logs, sorted by highest priority score."""
     repo = WorkflowRepository(db)
     logs = repo.get_all_logs()
     
+    # Sort by priority score (descending)
+    sorted_logs = sorted(logs, key=lambda x: x.priority_score, reverse=True)
+    
     results = []
-    for log in logs:
+    for log in sorted_logs:
         results.append({
             "id": log.id,
-            "regulation": log.regulation,
+            "regulation": log.regulation[:100] + "...", # Truncate for UI
             "parsed": log.parsed_output,
             "map": log.map_output,
             "department": log.department_output,
-            "validation": log.validation_output
+            "priority_score": log.priority_score,
+            "status": log.status
+        })
+    return results
+
+@app.get("/dashboard/officer")
+def officer_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    """Officer dashboard fetches logs, sorted by priority score."""
+    repo = WorkflowRepository(db)
+    logs = repo.get_all_logs()
+    
+    # Simulate filtering by department (In production, current_user would have a department_id)
+    # For MVP, we just sort by priority score
+    sorted_logs = sorted(logs, key=lambda x: x.priority_score, reverse=True)
+    
+    results = []
+    for log in sorted_logs:
+        results.append({
+            "id": log.id,
+            "regulation": log.regulation[:100] + "...", 
+            "map": log.map_output,
+            "department": log.department_output,
+            "priority_score": log.priority_score,
+            "status": log.status
         })
     return results
