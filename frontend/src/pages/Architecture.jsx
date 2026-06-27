@@ -202,10 +202,10 @@ export default function Architecture() {
               </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-orange-400/30 transition shadow-lg">
-              <h3 className="text-orange-400 font-bold mb-2">Advanced Reporting & Analytics</h3>
-              <p className="text-sm text-white/60 mb-3">Admins can instantly filter large regulatory queues by specific corporate Departments and generate CSV compliance reports directly from the DOM using encoded URIs.</p>
+              <h3 className="text-orange-400 font-bold mb-2">Advanced Reporting & Risk Heatmap</h3>
+              <p className="text-sm text-white/60 mb-3">Admins have access to a dynamic Compliance Risk Heatmap, calculating real-time load distribution by cross-referencing AI priority scores with departmental assignment. Additionally, Admins can filter large queues and generate CSV compliance reports directly from the DOM.</p>
               <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
-                <strong className="text-orange-500">Example:</strong> Admin selects "IT & Cyber Security" ➔ Maps state ➔ `encodeURI("data:text/csv...")` CSV Export.
+                <strong className="text-orange-500">Example:</strong> Heatmap Matrix: IT Dept + Priority 9 = Critical Red Cell. CSV Export uses `encodeURI("data:text/csv...")`.
               </div>
             </div>
           </div>

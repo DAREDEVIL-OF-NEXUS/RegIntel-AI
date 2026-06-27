@@ -312,20 +312,48 @@ export default function Dashboard() {
                     </div>
                     
                     <div className="bg-black/20 border border-white/5 p-5 rounded-xl mb-6">
-                      <h3 className="text-sm font-bold text-white/70 uppercase tracking-widest mb-4 flex items-center gap-2"><Activity size={16}/> Department Load Distribution (Infographic)</h3>
-                      <div className="flex flex-col gap-4">
-                        <div>
-                          <div className="flex justify-between text-xs font-mono text-cyan-400 mb-1"><span>IT & Cyber Security</span> <span>65%</span></div>
-                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "65%"}} transition={{duration: 1}} className="bg-cyan-500 h-full shadow-[0_0_10px_rgba(0,243,255,0.8)]"></motion.div></div>
-                        </div>
-                        <div>
-                          <div className="flex justify-between text-xs font-mono text-purple-400 mb-1"><span>Risk Management</span> <span>25%</span></div>
-                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "25%"}} transition={{duration: 1, delay: 0.2}} className="bg-purple-500 h-full shadow-[0_0_10px_rgba(188,19,254,0.8)]"></motion.div></div>
-                        </div>
-                        <div>
-                          <div className="flex justify-between text-xs font-mono text-blue-400 mb-1"><span>HR & Operations</span> <span>10%</span></div>
-                          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden"><motion.div initial={{width: 0}} animate={{width: "10%"}} transition={{duration: 1, delay: 0.4}} className="bg-blue-500 h-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></motion.div></div>
-                        </div>
+                      <h3 className="text-sm font-bold text-white/70 uppercase tracking-widest mb-4 flex items-center gap-2"><Activity size={16}/> Compliance Risk Heatmap</h3>
+                      <div className="overflow-hidden rounded-lg border border-white/10">
+                        <table className="w-full text-center text-sm">
+                          <thead>
+                            <tr className="bg-black/50 text-white/50 font-mono text-xs uppercase">
+                              <th className="p-2 border-r border-white/10 text-left">Department</th>
+                              <th className="p-2 border-r border-white/10">Low Risk (1-3)</th>
+                              <th className="p-2 border-r border-white/10">Medium Risk (4-7)</th>
+                              <th className="p-2">High Risk (8-10)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {["IT & Cyber Security", "Risk Management", "HR & Operations", "Legal & Compliance"].map((dept) => {
+                              const deptData = dashboardData.filter(d => d.department === dept && d.status !== 'implemented');
+                              const low = deptData.filter(d => d.priority_score <= 3).length;
+                              const med = deptData.filter(d => d.priority_score > 3 && d.priority_score <= 7).length;
+                              const high = deptData.filter(d => d.priority_score >= 8).length;
+                              
+                              const getBg = (count, level) => {
+                                if (count === 0) return 'bg-white/5 text-white/20';
+                                if (level === 'low') return 'bg-blue-500/20 text-blue-400 border border-blue-500/30';
+                                if (level === 'med') return 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30';
+                                return 'bg-red-500/30 text-red-400 border border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.3)] font-bold';
+                              };
+
+                              return (
+                                <tr key={dept} className="border-t border-white/5 bg-black/30">
+                                  <td className="p-3 border-r border-white/10 font-semibold text-white/80 text-left">{dept}</td>
+                                  <td className="p-2 border-r border-white/10">
+                                    <div className={`w-full py-2 rounded ${getBg(low, 'low')} transition-colors`}>{low}</div>
+                                  </td>
+                                  <td className="p-2 border-r border-white/10">
+                                    <div className={`w-full py-2 rounded ${getBg(med, 'med')} transition-colors`}>{med}</div>
+                                  </td>
+                                  <td className="p-2">
+                                    <div className={`w-full py-2 rounded ${getBg(high, 'high')} transition-colors`}>{high}</div>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
 

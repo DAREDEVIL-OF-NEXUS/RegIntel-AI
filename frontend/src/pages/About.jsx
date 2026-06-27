@@ -138,6 +138,7 @@ export default function About() {
               <PhaseCard num="11" title="Fraud Detection & AI Nuance" desc="Implemented strict JSON parsers to prevent LLM hallucinations. Added an AI Summary and Step-by-Step Recommendation generation. Engineered an Anti-Fraud escalation system banning officers after 6 fraudulent uploads and alerting the Admin." />
               <PhaseCard num="12" title="UI Formatting & MAP Rendering Upgrade" desc="Completely overhauled the rendering of Measurable Action Points (MAPs) on the dashboard into a beautifully formatted grid. Enhanced the AI Agent to logically separate step-by-step instructions from additional recommendations using bullet points and numbered lists." />
               <PhaseCard num="13" title="Advanced Admin Reporting Engine" desc="Integrated a dynamic Department Filtering engine into the Admin Dashboard. Built a one-click CSV Data Export feature for real-time compliance reporting and auditing." />
+              <PhaseCard num="14" title="Compliance Risk Heatmap & Analytics" desc="Replaced hardcoded infographics with a real-time Risk Heatmap. The dashboard now cross-references Departments against AI-generated Priority Scores to dynamically color-code pending regulatory load across the enterprise." />
             </div>
           </section>
         </div>
