@@ -1,7 +1,6 @@
-import ollama
+from services.llm_gateway import LLMGateway
 
-def assign_department(map_text):
-
+def assign_department(map_text: str) -> str:
     prompt = f"""
     You are a banking compliance officer.
 
@@ -28,15 +27,4 @@ def assign_department(map_text):
 
     {map_text}
     """
-
-    response = ollama.chat(
-        model="llama3.2",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    return response["message"]["content"]
+    return LLMGateway.generate(prompt)

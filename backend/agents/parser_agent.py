@@ -1,7 +1,6 @@
-import ollama
+from services.llm_gateway import LLMGateway
 
-def parse_regulation(text):
-
+def parse_regulation(text: str) -> str:
     prompt = f"""
     You are a banking compliance expert.
 
@@ -17,15 +16,4 @@ def parse_regulation(text):
 
     {text}
     """
-
-    response = ollama.chat(
-        model="llama3.2",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    return response["message"]["content"]
+    return LLMGateway.generate(prompt)

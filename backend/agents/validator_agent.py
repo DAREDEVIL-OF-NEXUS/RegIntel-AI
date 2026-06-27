@@ -1,8 +1,6 @@
-import ollama
+from services.llm_gateway import LLMGateway
 
-
-def validate_map(map_text):
-
+def validate_map(map_text: str) -> str:
     prompt = f"""
 You are a banking compliance auditor.
 
@@ -22,15 +20,4 @@ MAP:
 
 {map_text}
 """
-
-    response = ollama.chat(
-        model="llama3.2",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    return response["message"]["content"]
+    return LLMGateway.generate(prompt)

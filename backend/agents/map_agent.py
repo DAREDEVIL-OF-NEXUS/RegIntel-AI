@@ -1,7 +1,6 @@
-import ollama
+from services.llm_gateway import LLMGateway
 
-def generate_map(obligation):
-
+def generate_map(obligation: str) -> str:
     prompt = f"""
     You are a banking compliance officer.
 
@@ -21,15 +20,4 @@ def generate_map(obligation):
 
     {obligation}
     """
-
-    response = ollama.chat(
-        model="llama3.2",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    return response["message"]["content"]
+    return LLMGateway.generate(prompt)
