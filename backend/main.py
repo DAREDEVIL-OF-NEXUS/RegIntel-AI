@@ -123,6 +123,7 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
         "map": state.map_output,
         "department": state.department_output,
         "validation": state.validation_output,
+        "priority_score": state.priority_score,
         "executed_by": current_user["username"]
     }
 

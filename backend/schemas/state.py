@@ -13,6 +13,7 @@ class WorkflowState(BaseModel):
     map_output: str = Field(default="", description="Generated Measurable Action Point (MAP).")
     department_output: str = Field(default="", description="Assigned department.")
     validation_output: str = Field(default="", description="Validation score and result.")
+    priority_score: int = Field(default=5, description="Dynamically calculated priority severity (1-10).")
     
     # Metadata for routing and history
     status: str = Field(default="pending", description="Current status of the workflow.")

@@ -48,12 +48,22 @@ class WorkflowService:
 
         # Save to DB if completed successfully
         if final_state.status != "error":
+            # Attempt to extract priority score if agent output it in JSON, else default 5
+            try:
+                import json
+                parsed_json = json.loads(final_state.parsed_output)
+                p_score = int(parsed_json.get("Priority_Score_1_to_10", 5))
+                final_state.priority_score = p_score
+            except:
+                final_state.priority_score = 5
+
             self.repo.save_workflow_log(
                 regulation=final_state.regulation_text,
                 parsed=final_state.parsed_output,
                 map_val=final_state.map_output,
                 department=final_state.department_output,
-                validation=final_state.validation_output
+                validation=final_state.validation_output,
+                priority_score=final_state.priority_score
             )
 
         return final_state

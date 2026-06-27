@@ -16,6 +16,10 @@ class WorkflowLog(Base):
     department_output = Column(Text)
 
     validation_output = Column(Text)
+    
+    priority_score = Column(Integer, default=5)
+    
+    status = Column(String, default="pending")
 
 
 class Regulation(Base):
@@ -26,6 +30,10 @@ class Regulation(Base):
     title = Column(String)
 
     content = Column(Text)
+    
+    priority_score = Column(Integer, default=5)
+    
+    status = Column(String, default="pending")
 
 
 class MAP(Base):
