@@ -95,32 +95,55 @@ export default function Home() {
 
       <div className="mt-32 w-full max-w-5xl relative z-10 mb-20">
         <h2 className="text-3xl font-bold text-center mb-10 tracking-wide text-white">Development Roadmap</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          <RoadmapCard phase="Phase 1" title="Infrastructure" desc="FastAPI & DB." />
-          <RoadmapCard phase="Phase 2" title="Database" desc="State logging." />
-          <RoadmapCard phase="Phase 3" title="Graph Engine" desc="Custom Orchestrator." />
-          <RoadmapCard phase="Phase 4" title="Parser" desc="LLaMA3 MAP extraction." />
-          <RoadmapCard phase="Phase 5" title="Auth & RBAC" desc="JWT JWT integration." />
-          <RoadmapCard phase="Phase 6" title="Resilience" desc="Dual-LLM Failovers." />
-          <RoadmapCard phase="Phase 7" title="Priority Engine" desc="Dynamic 1-10 Queue." />
-          <RoadmapCard phase="Phase 8" title="Vision Auditor" desc="LLaVA Photo checks." />
-          <RoadmapCard phase="Phase 9" title="UX Dashboards" desc="Swiggy-style tracker." />
-          <RoadmapCard phase="Phase 10" title="The Polish" desc="Glassmorphism UI." />
+        <div className="flex flex-col items-center max-w-2xl mx-auto gap-2">
+          <RoadmapFlowCard phase="Phase 1" title="Infrastructure Setup" desc="Initialized FastAPI, PostgreSQL, and React. Configured the modular monolithic structure for scalable micro-agent deployment." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 2" title="Database Architecture" desc="Built SQLAlchemy ORMs with Active-Probing Failovers. Designed schemas to log Workflow States." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 3" title="Graph Engine" desc="Developed a custom, lightweight State Graph engine from scratch to handle agent routing and infinite-loop protection." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 4" title="Parser & MAP Agents" desc="Integrated Ollama (LLaMA3). Engineered the NLP prompt pipelines to ingest raw legalese and generate strictly formatted MAPs." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 5" title="Auth & RBAC" desc="Added an Agent to map regulations to specific departments. Built Enterprise JWT Role-Based Access Control." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 6" title="Resilience & Fallbacks" desc="Built the mission-critical Dual-LLM Gateway: automatically falling back to Gemini 1.5 Flash if the local GPU crashes." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 7" title="Priority Engine" desc="Programmed the AI to syntactically evaluate regulation severity. Generates a Priority Score (1-10) dynamically." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 8" title="Vision Auditor" desc="Deployed LLaVA and Gemini Vision models to algorithmically validate uploaded photographic evidence." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 9" title="UX Dashboards" desc="Built Role-Based Dashboards, Heatmaps, and the Swiggy-Style real-time Workflow Tracker." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, and created fake analytics." />
         </div>
       </div>
     </div>
   );
 }
 
-function RoadmapCard({ phase, title, desc }) {
+function RoadmapFlowCard({ phase, title, desc }) {
   return (
-    <div className="flex items-center gap-4 glass-panel p-4 border border-white/5 hover:border-cyan-400/30 transition-colors">
-      <div className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded font-bold text-sm whitespace-nowrap">{phase}</div>
-      <div>
-        <h4 className="font-bold text-white">{title}</h4>
-        <p className="text-white/50 text-xs">{desc}</p>
+    <motion.div 
+      whileHover={{ scale: 1.05 }}
+      className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 glass-panel p-6 border border-cyan-500/20 hover:border-cyan-400/60 transition-all shadow-[0_0_20px_rgba(0,243,255,0.1)] hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] w-full rounded-2xl group relative"
+    >
+      <div className="bg-cyan-500/20 text-cyan-400 px-4 py-2 rounded-xl font-black text-sm whitespace-nowrap shadow-inner border border-cyan-400/30 group-hover:bg-cyan-500/30 transition-colors">
+        {phase}
       </div>
-    </div>
+      <div>
+        <h4 className="font-extrabold text-white text-xl mb-1 tracking-wide">{title}</h4>
+        <p className="text-white/60 text-sm leading-relaxed">{desc}</p>
+      </div>
+    </motion.div>
   );
 }
 
