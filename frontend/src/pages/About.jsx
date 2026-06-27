@@ -17,35 +17,53 @@ export default function About() {
           The Vision Behind RegIntel AI
         </h1>
         
-        <div className="space-y-10 text-lg text-white/80 leading-relaxed">
+        <div className="space-y-12 text-lg text-white/80 leading-relaxed">
           <section className="relative z-10 group">
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3 group-hover:text-cyan-400 transition-colors">
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:border-cyan-400/50 transition-colors"><GraduationCap className="text-cyan-400" /></div>
+            <h2 className="text-3xl font-extrabold text-white mb-6 flex items-center gap-4 group-hover:text-cyan-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-2xl border border-cyan-500/30 group-hover:border-cyan-400 shadow-[0_0_20px_rgba(0,243,255,0.2)] group-hover:shadow-[0_0_30px_rgba(0,243,255,0.4)] transition-all">
+                <GraduationCap className="text-cyan-400" size={32} />
+              </div>
               The Architect
             </h2>
-            <p className="pl-16 border-l-2 border-white/10 group-hover:border-cyan-400/50 transition-colors py-2">
-              I am a <strong className="text-white">First Year B.Tech CSE student at Delhi Technological University (DTU)</strong>. While many first-year students focus strictly on introductory syntax, my passion lies in architecting production-grade, highly scalable systems. This project was born out of a relentless drive to bridge the gap between academic learning and Silicon Valley-tier software engineering.
-            </p>
+            <div className="pl-16 border-l-4 border-cyan-500/30 group-hover:border-cyan-400 transition-colors py-4">
+              <p className="mb-4">
+                I am a <strong className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 font-black text-xl tracking-wide">First Year B.Tech CSE student at Delhi Technological University (DTU)</strong>. 
+              </p>
+              <p>
+                While many first-year students focus strictly on introductory syntax, my passion lies in architecting production-grade, highly scalable AI systems. This project was born out of a relentless, burning drive to bridge the massive gap between academic learning and Silicon Valley-tier software engineering. I wanted to prove that age and semester do not dictate the magnitude of the impact you can create.
+              </p>
+            </div>
           </section>
 
           <section className="relative z-10 group">
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3 group-hover:text-purple-400 transition-colors">
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:border-purple-400/50 transition-colors"><Heart className="text-purple-400" /></div>
+            <h2 className="text-3xl font-extrabold text-white mb-6 flex items-center gap-4 group-hover:text-purple-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-2xl border border-purple-500/30 group-hover:border-purple-400 shadow-[0_0_20px_rgba(188,19,254,0.2)] group-hover:shadow-[0_0_30px_rgba(188,19,254,0.4)] transition-all">
+                <Heart className="text-purple-400" size={32} />
+              </div>
               The Moral Imperative
             </h2>
-            <p className="pl-16 border-l-2 border-white/10 group-hover:border-purple-400/50 transition-colors py-2">
-              Banking compliance isn't just about avoiding fines—it's about protecting everyday people. When institutions fail to comply with cybersecurity frameworks, ordinary citizens lose their life savings to fraud and breaches. <strong className="text-white">RegIntel AI</strong> was built with a deep moral reason: to eliminate human error in compliance reading so banks can secure infrastructure faster, keeping the economy stable and citizens safe.
-            </p>
+            <div className="pl-16 border-l-4 border-purple-500/30 group-hover:border-purple-400 transition-colors py-4">
+              <p className="mb-4">
+                Banking compliance isn't just a boring checklist to avoid fines—it is the literal shield protecting everyday people. 
+              </p>
+              <p>
+                When massive institutions fail to comply with cybersecurity frameworks, ordinary hardworking citizens lose their life savings to fraud and breaches. <strong className="text-purple-300 font-bold tracking-wide">RegIntel AI</strong> was built with a deeply rooted moral reason: to eliminate human error in compliance reading. By automating this, banks can secure infrastructure faster, preventing financial catastrophes, keeping the economy stable, and ultimately keeping everyday citizens safe.
+              </p>
+            </div>
           </section>
 
           <section className="relative z-10 group">
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3 group-hover:text-blue-400 transition-colors">
-              <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:border-blue-400/50 transition-colors"><Code2 className="text-blue-400" /></div>
+            <h2 className="text-3xl font-extrabold text-white mb-6 flex items-center gap-4 group-hover:text-green-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-green-500/20 to-emerald-500/10 rounded-2xl border border-green-500/30 group-hover:border-green-400 shadow-[0_0_20px_rgba(74,222,128,0.2)] group-hover:shadow-[0_0_30px_rgba(74,222,128,0.4)] transition-all">
+                <Code2 className="text-green-400" size={32} />
+              </div>
               The Hackathon Initiative
             </h2>
-            <p className="pl-16 border-l-2 border-white/10 group-hover:border-blue-400/50 transition-colors py-2">
-              Built for solving a real-world problem at scale. The goal was never to build a simple MVP or a brittle script. The goal was to build a system that a Tier-1 bank could theoretically deploy tomorrow. By implementing a custom Graph Orchestrator, JWT Auth, and a highly polished React UI, RegIntel AI proves that age and semester don't define the quality of engineering.
-            </p>
+            <div className="pl-16 border-l-4 border-green-500/30 group-hover:border-green-400 transition-colors py-4">
+              <p>
+                This was built specifically to solve a real-world problem at an immense scale for this hackathon. The goal was never to build a simple Minimum Viable Product or a brittle, hardcoded script. The goal was to architect a decoupled, resilient system that a Tier-1 bank could theoretically deploy tomorrow. By implementing a custom Graph Orchestrator, Dual-LLM Failovers, and a highly polished React UI, RegIntel AI stands as a testament to what a driven student can build in a weekend.
+              </p>
+            </div>
           </section>
         </div>
       </motion.div>

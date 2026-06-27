@@ -1,20 +1,29 @@
-# 🛡️ RegIntel AI
+<div align="center">
+  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield-check.svg" width="80" height="80" alt="RegIntel AI Logo">
+  
+  # 🛡️ RegIntel AI
+  
+  **Agentic Regulatory Intelligence & Compliance Platform**
 
-**Agentic Regulatory Intelligence & Compliance Platform**
+  *Built by a First-Year B.Tech CSE Student @ Delhi Technological University (DTU)*
 
-RegIntel AI is a production-grade, offline-capable AI compliance copilot. It completely automates the lifecycle of banking regulations—ingesting massive regulatory circulars, extracting measurable action points, validating evidence, and maintaining an unalterable audit trail using a custom Graph Orchestrator.
+</div>
+
+<p align="center">
+  RegIntel AI is a production-grade, offline-capable AI compliance copilot. It completely automates the lifecycle of banking regulations—ingesting massive regulatory circulars, extracting measurable action points, validating evidence algorithmically via Vision models, and maintaining an unalterable audit trail using a custom Graph Orchestrator.
+</p>
 
 ---
 
-## 🌟 Key Features
+## 🌟 Architectural Marvels (Key Features)
 
 * **Multi-Agent Architecture**: Dedicated specialized agents (Parser, MAP Generator, Department Assigner, Validator) executing tasks autonomously.
 * **Custom Graph Orchestrator**: A lightweight, dependency-free LangGraph alternative managing state transitions, conditional routing, and error halting.
-* **Fault-Tolerant Database Architecture**: Active connection probing that automatically falls back from Cloud PostgreSQL to Local SQLite during network outages, ensuring 100% uptime.
-* **Agent Memory**: Semantic search integrations allowing agents to compare new regulations against historical contexts to prevent hallucinations.
-* **Enterprise Security**: JWT-based Authentication and Role-Based Access Control (Admin vs. Officer views).
-* **Next-Gen Frontend**: A highly appealing React/Vite dashboard featuring glassmorphism, Framer Motion animations, and interactive comet-tail cursors.
-* **100% Offline Capable**: Powered by Ollama (`llama3.2`), ensuring zero data leakage for highly sensitive banking compliance data.
+* **Dual-LLM Transparent Failover**: 100% Offline-First for enterprise security powered by Ollama (`llama3`). If local compute crashes during an intense workload, the API instantly tunnels requests to Gemini Cloud APIs, ensuring absolute 100% uptime for production/demos.
+* **Dynamic Priority Engine**: Agents syntactically grade the severity of a regulatory impact (1-10). Critical cyber breaches automatically jump to the top of Department queues.
+* **AI Vision Auditor**: Instead of humans verifying proof of compliance, officers upload photos. The platform utilizes LLaVA (Offline Vision) and Gemini Vision to algorithmically determine if the evidence matches the regulatory mandate.
+* **Swiggy-Style UX Tracker**: The stunning React frontend directly subscribes to the Graph Engine's state, visually tracking a document's progression through nodes in real time.
+* **Fault-Tolerant Database Integration**: Active connection probing that automatically falls back from Cloud PostgreSQL to Local SQLite during network outages.
 
 ---
 
@@ -30,7 +39,7 @@ graph TD
     subgraph Backend
         API --> Engine[Custom Graph Orchestrator]
         API --> Auth[JWT Handler]
-        API --> Evidence[Evidence Service]
+        API --> Evidence[Vision Service]
         
         Engine --> State[(WorkflowState)]
         
@@ -45,6 +54,8 @@ graph TD
         M -.-> LLM
         D -.-> LLM
         V -.-> LLM
+        
+        LLM -.->|Failover| Gemini[Google Gemini API]
         
         Engine --> DB[(PostgreSQL / SQLite)]
         Engine <--> Knowledge[Knowledge Service]
@@ -68,28 +79,28 @@ stateDiagram-v2
 
 ---
 
-## 🚀 Deployment & Installation Guide
+## 🚀 Local AI Setup & Installation Guide
 
 This project is built to industry standards and relies strictly on Environment Variables (`.env`) for configuration. **No secrets are hardcoded.**
 
-### Step 1: Obtain Environment Secrets
+### Step 1: Install Local AI (Offline Models)
+RegIntel AI is heavily optimized to run on local hardware to prevent banking data leakage.
+1. Download **Ollama**: [ollama.com/download](https://ollama.com/download)
+2. Open your terminal and run:
+   ```bash
+   ollama run llama3
+   ollama run llava
+   ```
+   *(Ensure the Ollama app remains open in your system tray so the backend can reach `http://localhost:11434`)*
 
-Before running the app, you must create `.env` files in both the `backend/` and `frontend/` folders. You can copy the provided `.env.example` files.
+### Step 2: Obtain Environment Secrets
+You must configure the transparent failovers. 
+1. Get a [Gemini API Key](https://aistudio.google.com/app/apikey).
+2. Create `.env` files in `backend/` and `frontend/` by copying the `.env.example` files.
+   * `backend/.env`: Set `GEMINI_API_KEY="your_key"`. Set `DATABASE_URL="sqlite:///./regintel.db"` (Or use a Postgres URL).
+   * `frontend/.env`: Set `VITE_API_URL="http://localhost:8000"`
 
-#### Backend Secrets (`backend/.env`)
-1. **`DATABASE_URL`**: 
-   * *Local Test*: `sqlite:///./regintel.db` (Default)
-   * *Production*: You need a PostgreSQL database. Obtain one for free from [Supabase](https://supabase.com) or [Neon](https://neon.tech).
-2. **`SECRET_KEY`**: 
-   * This is used for JWT token signing.
-   * *How to generate*: Run this in your terminal: `openssl rand -hex 32` or use [GenerateRandom](https://generate-random.org/encryption-key-generator).
-
-#### Frontend Secrets (`frontend/.env`)
-1. **`VITE_API_URL`**: 
-   * *Local Test*: `http://localhost:8000`
-   * *Production*: The URL where your FastAPI backend is deployed (e.g., Render, Railway, AWS).
-
-### Step 2: Running Locally (Manual Setup)
+### Step 3: Running Locally (Manual Setup)
 
 **1. Start the Backend (FastAPI)**
 ```bash
@@ -114,17 +125,15 @@ npm run dev
 ```
 Access the stunning UI at `http://localhost:5173`.
 
-### Step 3: Running via Docker (Production Grade)
-
+### Step 4: Running via Docker (Production Grade)
 Ensure Docker is installed, then simply run:
 ```bash
 docker-compose up --build
 ```
-This single command spins up PostgreSQL, the FastAPI Backend, and the React Frontend seamlessly.
 
 ---
 
-## 🛡️ Usage & Fallbacks
+## 🛡️ Usage & Role-Based Access
 
-* **Demo Accounts**: Use `admin/admin123` for full access (including Audit logs), or `officer/officer123` for standard access.
-* **LLM Fallback**: The `LLMGateway` is designed to gracefully fallback or halt execution if Ollama crashes, setting `status="error"` in the state graph.
+* **Admin Role (Master Dashboard)**: Use `admin` / `admin123`. Grants access to the global Heatmaps, execution logs, and complete priority queues.
+* **Officer Role (Department UI)**: Use `officer` / `officer123`. Grants access to department-specific queues and the Vision Auditor upload portal.
