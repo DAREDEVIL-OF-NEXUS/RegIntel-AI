@@ -140,6 +140,7 @@ export default function About() {
               <PhaseCard num="13" title="Advanced Admin Reporting Engine" desc="Integrated a dynamic Department Filtering engine into the Admin Dashboard. Built a one-click CSV Data Export feature for real-time compliance reporting and auditing." />
               <PhaseCard num="14" title="Compliance Risk Heatmap & Analytics" desc="Replaced hardcoded infographics with a real-time Risk Heatmap. The dashboard now cross-references Departments against AI-generated Priority Scores to dynamically color-code pending regulatory load across the enterprise." />
               <PhaseCard num="15" title="Global Semantic Omni-Search" desc="Implemented a real-time search engine on the Master Dashboard. Admins can now instantly filter thousands of regulations by ID, text snippets, or AI summaries, creating a lightning-fast data retrieval experience." />
+              <PhaseCard num="16" title="Human-in-the-Loop Registration" desc="Upgraded the Graph Orchestrator to hold AI outputs in a visual staging environment. Admins must explicitly click 'Register Obligation' to commit the AI's execution plan to the database, preventing hallucinatory data corruption." />
             </div>
           </section>
         </div>

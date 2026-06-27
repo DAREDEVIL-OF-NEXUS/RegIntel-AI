@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from database import engine, SessionLocal
 from models import Base
-from schemas.api import RegulationRequest, MAPRequest, DepartmentRequest, LoginRequest, EvidenceRequest
+from schemas.api import RegulationRequest, MAPRequest, DepartmentRequest, LoginRequest, EvidenceRequest, RegisterRequest
 from services.workflow_service import WorkflowService
 from repositories.workflow_repository import WorkflowRepository
 from services.evidence_service import EvidenceService
@@ -153,6 +153,7 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
         
     return {
         "id": state.regulation_id_str if hasattr(state, "regulation_id_str") else None,
+        "regulation": state.regulation_text,
         "parsed": state.parsed_output,
         "map": state.map_output,
         "department": state.department_output,
@@ -160,6 +161,33 @@ def run_workflow(req: RegulationRequest, db: Session = Depends(get_db), current_
         "priority_score": state.priority_score,
         "executed_by": current_user["username"]
     }
+
+@app.post("/register-obligation")
+def register_obligation(req: RegisterRequest, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    repo = WorkflowRepository(db)
+    
+    import json
+    ai_summary = ""
+    ai_recommendation = ""
+    try:
+        map_json = json.loads(req.map_val)
+        ai_summary = map_json.get("ai_summary", "")
+        ai_recommendation = map_json.get("ai_recommendation", "")
+    except:
+        pass
+        
+    repo.save_workflow_log(
+        regulation=req.regulation,
+        parsed=req.parsed,
+        map_val=req.map_val,
+        department=req.department,
+        validation=req.validation,
+        priority_score=req.priority_score,
+        ai_summary=ai_summary,
+        ai_recommendation=ai_recommendation,
+        regulation_id_str=req.regulation_id_str
+    )
+    return {"status": "success"}
 
 @app.post("/upload-evidence")
 async def upload_evidence(

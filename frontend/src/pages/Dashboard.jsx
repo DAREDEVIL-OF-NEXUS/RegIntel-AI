@@ -133,6 +133,31 @@ export default function Dashboard() {
     setLoading(false);
   };
 
+  const registerObligation = async () => {
+    if (!workflowResult) return;
+    setLoading(true);
+    try {
+      await axios.post(`${API_URL}/register-obligation`, 
+        { 
+          regulation: workflowResult.regulation,
+          parsed: workflowResult.parsed,
+          map_val: workflowResult.map,
+          department: workflowResult.department,
+          validation: workflowResult.validation,
+          priority_score: workflowResult.priority_score,
+          regulation_id_str: workflowResult.id
+        }, 
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert(`Regulation ${workflowResult.id} registered successfully!`);
+      setWorkflowResult(null);
+      setRegulation("");
+    } catch (err) {
+      alert("Failed to register obligation: " + (err.response?.data?.detail || err.message));
+    }
+    setLoading(false);
+  };
+
   if (!token) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh]">
@@ -288,10 +313,89 @@ export default function Dashboard() {
                       </div>
                     </div>
                     
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 bg-black/50 rounded-xl p-6 border border-white/10 overflow-auto shadow-inner relative">
-                      <div className="absolute top-4 right-4 text-white/30"><Code size={20} /></div>
-                      <h3 className="text-sm font-semibold text-cyan-400 mb-4 uppercase tracking-widest">Database Output Log</h3>
-                      <pre className="text-sm text-cyan-50/90 font-mono leading-relaxed">{JSON.stringify(workflowResult, null, 2)}</pre>
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 bg-black/50 rounded-xl p-6 border border-white/10 shadow-inner relative">
+                      <div className="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="bg-cyan-500/20 text-cyan-400 font-mono px-3 py-1 rounded font-bold text-sm">{workflowResult.id}</span>
+                          <span className="px-2 py-1 rounded font-bold text-xs bg-red-500/20 text-red-400">Score: {workflowResult.priority_score}/10</span>
+                          <span className="text-sm font-medium text-purple-400">
+                            {(() => {
+                              try { return JSON.parse(workflowResult.department).department; }
+                              catch(e) { return workflowResult.department; }
+                            })()}
+                          </span>
+                        </div>
+                        <button 
+                          onClick={registerObligation}
+                          disabled={loading}
+                          className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-lg transition shadow-[0_0_15px_rgba(74,222,128,0.3)] disabled:opacity-50 flex items-center gap-2"
+                        >
+                          {loading ? "Registering..." : <><CheckCircle size={18}/> Register Obligation</>}
+                        </button>
+                      </div>
+                      
+                      <div className="mb-6">
+                        <h4 className="text-cyan-400 font-bold uppercase tracking-widest text-xs mb-2">Novice AI Summary</h4>
+                        <p className="text-white/90 text-sm leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5">
+                          {(() => {
+                            try { return JSON.parse(workflowResult.map).ai_summary || "No summary available."; } 
+                            catch(e) { return "No summary available."; }
+                          })()}
+                        </p>
+                      </div>
+
+                      <div className="mb-6">
+                        <h4 className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-4">Measurable Action Point (MAP) Details</h4>
+                        {(() => {
+                          try {
+                            const mapObj = JSON.parse(workflowResult.map);
+                            return (
+                              <div className="flex flex-col gap-3">
+                                <div className="bg-black/40 border border-purple-500/20 p-4 rounded-xl">
+                                  <div className="text-xs text-purple-400/70 uppercase tracking-widest mb-1 font-bold">Action Required</div>
+                                  <div className="text-white/90 text-sm leading-relaxed">{mapObj.map || mapObj.action}</div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <div className="bg-black/40 border border-cyan-500/20 p-4 rounded-xl">
+                                    <div className="text-xs text-cyan-400/70 uppercase tracking-widest mb-1 font-bold">Metric</div>
+                                    <div className="text-white/80 text-sm font-mono">{mapObj.metric}</div>
+                                  </div>
+                                  <div className="bg-black/40 border border-green-500/20 p-4 rounded-xl">
+                                    <div className="text-xs text-green-400/70 uppercase tracking-widest mb-1 font-bold">Evidence Required</div>
+                                    <div className="text-white/80 text-sm">
+                                      {Array.isArray(mapObj.evidence_required) ? (
+                                        <ul className="list-disc pl-4 mt-1 space-y-1">
+                                          {mapObj.evidence_required.map((item, idx) => <li key={idx}>{item}</li>)}
+                                        </ul>
+                                      ) : mapObj.evidence_required}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          } catch (e) {
+                            return <pre className="text-white/80 text-xs leading-relaxed bg-black/30 p-4 rounded-lg border border-white/5 whitespace-pre-wrap overflow-hidden">{workflowResult.map}</pre>;
+                          }
+                        })()}
+                      </div>
+
+                      <div className="mb-2">
+                        <h4 className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-2">Step-by-Step AI Recommendation & Additions</h4>
+                        <div className="text-white/90 text-sm leading-relaxed bg-black/30 p-5 rounded-xl border border-white/10 prose prose-invert max-w-none">
+                          {(() => {
+                            try {
+                              const recs = JSON.parse(workflowResult.map).ai_recommendation;
+                              if (!recs) return "No recommendation available.";
+                              return recs.split('\n').map((line, idx) => {
+                                if (line.match(/^\d+\./)) return <li key={idx} className="ml-4 mb-2">{line.replace(/^\d+\.\s*/, '')}</li>;
+                                if (line.startsWith('-') || line.startsWith('*')) return <li key={idx} className="ml-4 mb-2 text-blue-200 list-disc">{line.replace(/^[-*]\s*/, '')}</li>;
+                                if (line.trim() === '') return <br key={idx} />;
+                                return <p key={idx} className="mb-2 font-medium">{line}</p>;
+                              });
+                            } catch(e) { return "No recommendation available."; }
+                          })()}
+                        </div>
+                      </div>
                     </motion.div>
                   </div>
                 )}

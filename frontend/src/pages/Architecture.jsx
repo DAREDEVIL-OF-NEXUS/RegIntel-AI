@@ -208,6 +208,13 @@ export default function Architecture() {
                 <strong className="text-orange-500">Example:</strong> Admin searches "MFA" ➔ Table filters in O(n) ➔ `encodeURI("data:text/csv...")` CSV Export.
               </div>
             </div>
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-cyan-400/30 transition shadow-lg">
+              <h3 className="text-cyan-400 font-bold mb-2">Human-in-the-Loop Registration</h3>
+              <p className="text-sm text-white/60 mb-3">AI execution outputs are now staged in a visual UI for Admin review. The pipeline requires explicit human authorization (`Register Obligation`) before persisting to PostgreSQL and routing to department queues, strictly preventing AI hallucination propagation.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-cyan-500">Node:</strong> State → Frontend Staging → (Human Click) → DB Commit → Route
+              </div>
+            </div>
           </div>
         </div>
 

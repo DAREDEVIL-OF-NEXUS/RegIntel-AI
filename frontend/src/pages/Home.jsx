@@ -157,6 +157,24 @@ export default function Home() {
           <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
           
           <RoadmapFlowCard phase="Phase 10" title="The Grand Polish" desc="Finalized Glassmorphism styling, wrote exhaustive documentation, and created fake analytics." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 11" title="Anti-Fraud Escalation" desc="Strict JSON parsers and 3-strike Ban Policies against officers attempting to upload fraudulent evidence." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+          
+          <RoadmapFlowCard phase="Phase 12" title="Dynamic UI Engine" desc="Separated JSON responses into heavily formatted frontend UI cards, novice AI summaries, and numbered recommendations." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+
+          <RoadmapFlowCard phase="Phase 13" title="Reporting Engine" desc="Integrated one-click CSV Compliance Exports via encoded URIs." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+
+          <RoadmapFlowCard phase="Phase 14" title="Compliance Heatmap" desc="Built dynamic cross-reference heatmaps projecting departmental loads against AI Priority Scores." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+
+          <RoadmapFlowCard phase="Phase 15" title="Omni-Search Engine" desc="Developed a semantic text-filtering engine directly on the Admin Dashboard for O(n) data retrieval." />
+          <div className="h-8 w-0.5 bg-gradient-to-b from-cyan-500/50 to-transparent"></div>
+
+          <RoadmapFlowCard phase="Phase 16" title="Human-in-the-Loop Auth" desc="Added a 'Register Obligation' checkpoint, ensuring Admins review AI outputs before they hit department queues." />
         </div>
       </div>
     </div>

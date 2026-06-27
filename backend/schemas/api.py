@@ -16,3 +16,12 @@ class LoginRequest(BaseModel):
 class EvidenceRequest(BaseModel):
     file_name: str
     map_text: str
+
+class RegisterRequest(BaseModel):
+    regulation: str
+    parsed: str
+    map_val: str
+    department: str
+    validation: str
+    priority_score: int
+    regulation_id_str: str

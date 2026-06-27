@@ -86,17 +86,6 @@ class WorkflowService:
                 pass
 
             reg_id = f"REG-{str(uuid.uuid4())[:8].upper()}"
-
-            self.repo.save_workflow_log(
-                regulation=final_state.regulation_text,
-                parsed=final_state.parsed_output,
-                map_val=final_state.map_output,
-                department=final_state.department_output,
-                validation=final_state.validation_output,
-                priority_score=final_state.priority_score,
-                ai_summary=ai_summary,
-                ai_recommendation=ai_recommendation,
-                regulation_id_str=reg_id
-            )
+            final_state.regulation_id_str = reg_id
 
         return final_state
