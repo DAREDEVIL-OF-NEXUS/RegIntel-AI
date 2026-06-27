@@ -50,10 +50,10 @@ def root():
 @app.post("/login")
 def login(req: LoginRequest):
     if req.username == "admin" and req.password == "admin123":
-        token = create_access_token({"sub": req.username, "role": "admin"})
+        token = create_access_token(username=req.username, role="admin")
         return {"access_token": token, "token_type": "bearer"}
     elif req.username == "officer" and req.password == "officer123":
-        token = create_access_token({"sub": req.username, "role": "officer"})
+        token = create_access_token(username=req.username, role="officer")
         return {"access_token": token, "token_type": "bearer"}
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")

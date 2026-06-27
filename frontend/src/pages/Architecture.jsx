@@ -75,23 +75,87 @@ export default function Architecture() {
         </div>
 
         <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">Implemented Architectural Marvels</h2>
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent pointer-events-none"></div>
+          <h2 className="text-3xl font-bold text-white mb-10 text-center tracking-tight">Low-Level Orchestrator Graph Workflow</h2>
+          
+          <div className="flex flex-col items-center gap-4 relative z-10 font-mono text-sm">
+            <div className="bg-cyan-900/40 border border-cyan-400 p-4 rounded-lg w-64 text-center text-cyan-400 font-bold shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+              [START] Initial State
+            </div>
+            <div className="h-8 w-0.5 bg-white/20"></div>
+            
+            <div className="bg-blue-900/40 border border-blue-400 p-4 rounded-lg w-64 text-center text-blue-400 font-bold shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+              ParserNode (Text/PDF)
+            </div>
+            
+            <div className="flex w-64 justify-between items-center -my-2 relative z-0">
+              <div className="w-1/2 h-0.5 bg-white/20"></div>
+              <div className="w-1/2 h-0.5 bg-white/20"></div>
+            </div>
+            <div className="flex w-full max-w-sm justify-between -mt-4">
+               <div className="text-red-400 text-xs ml-4">OnError</div>
+               <div className="text-green-400 text-xs mr-4">OnSuccess</div>
+            </div>
+
+            <div className="flex gap-12 mt-2">
+              <div className="bg-red-900/40 border border-red-500 p-3 rounded-lg w-32 text-center text-red-400 font-bold text-xs">
+                Halt & Log
+              </div>
+              
+              <div className="flex flex-col items-center gap-4">
+                <div className="bg-purple-900/40 border border-purple-400 p-4 rounded-lg w-64 text-center text-purple-400 font-bold shadow-[0_0_15px_rgba(188,19,254,0.2)]">
+                  MAPNode (Action Point)
+                </div>
+                <div className="h-8 w-0.5 bg-white/20"></div>
+                
+                <div className="bg-indigo-900/40 border border-indigo-400 p-4 rounded-lg w-64 text-center text-indigo-400 font-bold shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+                  DepartmentNode & Priority
+                </div>
+                <div className="h-8 w-0.5 bg-white/20"></div>
+                
+                <div className="bg-green-900/40 border border-green-400 p-4 rounded-lg w-64 text-center text-green-400 font-bold shadow-[0_0_15px_rgba(74,222,128,0.2)]">
+                  ValidatorNode (Vision)
+                </div>
+                <div className="h-8 w-0.5 bg-white/20"></div>
+                
+                <div className="bg-white/10 border border-white/30 p-3 rounded-lg w-32 text-center text-white/80 font-bold text-xs">
+                  [END] Complete
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel p-10 mb-12 w-full shadow-2xl relative overflow-hidden">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">Implemented Architectural Marvels & Fallbacks</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-cyan-400/30 transition shadow-lg">
               <h3 className="text-cyan-400 font-bold mb-2">Dual-LLM Transparent Failover</h3>
-              <p className="text-sm text-white/60">If the offline local Ollama node crashes or lacks resources, the API Gateway instantly reroutes requests to Gemini 1.5 Flash via a secure cloud tunnel, guaranteeing 100% uptime for demos without compromising the offline-first security pledge.</p>
+              <p className="text-sm text-white/60 mb-3">If the offline local Ollama node crashes or lacks resources, the API Gateway instantly reroutes requests to Gemini 1.5 Flash via a secure cloud tunnel, guaranteeing 100% uptime.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-cyan-500">Example:</strong> Agent tries `ollama.chat('llama3')`. If Timeout ➔ Intercept Exception ➔ `genai.generate_content('gemini-1.5-flash')`.
+              </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-400/30 transition shadow-lg">
               <h3 className="text-purple-400 font-bold mb-2">Vision Auditor Pipeline</h3>
-              <p className="text-sm text-white/60">Instead of humans verifying compliance proofs, uploaded images are passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
+              <p className="text-sm text-white/60 mb-3">Instead of humans verifying compliance proofs, uploaded images are passed through LLaVA (offline) or Gemini Vision to algorithmically determine if the evidence matches the MAP.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-purple-500">Example:</strong> MAP says "Enable MFA". Officer uploads screenshot of Okta. Vision Model outputs: `{"status": "APPROVED"}`.
+              </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-blue-400/30 transition shadow-lg">
               <h3 className="text-blue-400 font-bold mb-2">Priority Queue Engine</h3>
-              <p className="text-sm text-white/60">Agents syntactically score regulatory impact severity out of 10. PostgreSQL indexes serve personalized, sorted queues for officers dynamically.</p>
+              <p className="text-sm text-white/60 mb-3">Agents syntactically score regulatory impact severity out of 10. PostgreSQL indexes serve personalized, sorted queues for officers dynamically.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-blue-500">Example:</strong> Font-size change in terms scores 2/10. Data breach protocol mandate scores 9/10 and jumps to the top of the queue.
+              </div>
             </div>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-green-400/30 transition shadow-lg">
-              <h3 className="text-green-400 font-bold mb-2">State-Driven UX Tracker</h3>
-              <p className="text-sm text-white/60">Frontend dashboards directly subscribe to the Graph Engine's state, tracking the exact progression of a document from Ingestion ➔ MAP Generation ➔ Audit like a real-time Swiggy delivery tracker.</p>
+              <h3 className="text-green-400 font-bold mb-2">Database Active-Probing Failover</h3>
+              <p className="text-sm text-white/60 mb-3">On startup, FastAPI probes the Primary Cloud Postgres DB. If network fails, SQLAlchemy instantly mounts a local SQLite volume without dropping a request.</p>
+              <div className="bg-black/50 p-3 rounded border border-white/5 text-xs text-white/40 font-mono">
+                <strong className="text-green-500">Example:</strong> Postgres Connection Timeout ➔ `DATABASE_URL2=sqlite:///./regintel.db` activated.
+              </div>
             </div>
           </div>
         </div>

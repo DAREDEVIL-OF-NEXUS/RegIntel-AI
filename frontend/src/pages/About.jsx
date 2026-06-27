@@ -65,6 +65,41 @@ export default function About() {
               </p>
             </div>
           </section>
+
+          <section className="relative z-10 group mt-16">
+            <h2 className="text-3xl font-extrabold text-white mb-6 flex items-center gap-4 group-hover:text-yellow-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-yellow-500/20 to-orange-500/10 rounded-2xl border border-yellow-500/30 group-hover:border-yellow-400 shadow-[0_0_20px_rgba(234,179,8,0.2)] group-hover:shadow-[0_0_30px_rgba(234,179,8,0.4)] transition-all">
+                <Code2 className="text-yellow-400" size={32} />
+              </div>
+              Development Phases & Execution
+            </h2>
+            <div className="pl-16 border-l-4 border-yellow-500/30 group-hover:border-yellow-400 transition-colors py-4 space-y-6">
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 1-3: Core Infrastructure</h4>
+                <p className="text-sm text-white/60">Set up the custom Graph Orchestrator replacing LangChain. Built the FastAPI backend, SQLAlchemy database, and React/Vite frontend.</p>
+              </div>
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 4-5: Agents & Auth</h4>
+                <p className="text-sm text-white/60">Implemented the Parser, MAP Generator, and Department Assigner Agents using Ollama. Integrated JWT Role-Based Access Control (RBAC).</p>
+              </div>
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 6: Ingestion & Resilience</h4>
+                <p className="text-sm text-white/60">Built offline PDF extraction, Web Scraping fallbacks, and the crucial Dual-LLM Gateway to fallback to Gemini if Ollama crashes.</p>
+              </div>
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 7: Priority Engine</h4>
+                <p className="text-sm text-white/60">Programmed the AI to syntactically evaluate regulation severity and assign a 1-10 score, dynamically sorting the PostgreSQL queues.</p>
+              </div>
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 8: Vision Auditor</h4>
+                <p className="text-sm text-white/60">Deployed LLaVA (with Gemini Vision fallback) to algorithmically validate uploaded photographic evidence against Action Points.</p>
+              </div>
+              <div>
+                <h4 className="text-yellow-400 font-bold mb-1">Phase 9-10: Master Frontend & Grand Polish</h4>
+                <p className="text-sm text-white/60">Engineered the Swiggy-Style real-time workflow tracker, glassmorphism UI, heatmap dashboard, and exhaustive technical documentation.</p>
+              </div>
+            </div>
+          </section>
         </div>
       </motion.div>
     </div>
