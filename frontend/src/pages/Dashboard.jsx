@@ -26,7 +26,18 @@ export default function Dashboard() {
   const [expandedRow, setExpandedRow] = useState(null);
   
   const [selectedDepartment, setSelectedDepartment] = useState("All");
-  const filteredData = dashboardData.filter(d => selectedDepartment === "All" || d.department === selectedDepartment);
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const filteredData = dashboardData.filter(d => {
+    const matchesDept = selectedDepartment === "All" || d.department === selectedDepartment;
+    const lowerQuery = searchQuery.toLowerCase();
+    const matchesSearch = !searchQuery || 
+      (d.regulation_id && d.regulation_id.toLowerCase().includes(lowerQuery)) ||
+      (d.regulation && d.regulation.toLowerCase().includes(lowerQuery)) ||
+      (d.ai_summary && d.ai_summary.toLowerCase().includes(lowerQuery)) ||
+      (d.department && d.department.toLowerCase().includes(lowerQuery));
+    return matchesDept && matchesSearch;
+  });
 
   const fetchDashboardData = async () => {
     try {
@@ -357,21 +368,33 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-center mb-4">
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm font-semibold text-white/60 uppercase tracking-widest">Filter by Department:</span>
-                        <select 
-                          value={selectedDepartment}
-                          onChange={(e) => setSelectedDepartment(e.target.value)}
-                          className="bg-black/40 border border-white/20 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-cyan-400 transition"
-                        >
-                          <option value="All">All Departments</option>
-                          <option value="IT & Cyber Security">IT & Cyber Security</option>
-                          <option value="Risk Management">Risk Management</option>
-                          <option value="HR & Operations">HR & Operations</option>
-                          <option value="Legal & Compliance">Legal & Compliance</option>
-                        </select>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto">
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm font-semibold text-white/60 uppercase tracking-widest">Filter:</span>
+                          <select 
+                            value={selectedDepartment}
+                            onChange={(e) => setSelectedDepartment(e.target.value)}
+                            className="bg-black/40 border border-white/20 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-cyan-400 transition"
+                          >
+                            <option value="All">All Departments</option>
+                            <option value="IT & Cyber Security">IT & Cyber Security</option>
+                            <option value="Risk Management">Risk Management</option>
+                            <option value="HR & Operations">HR & Operations</option>
+                            <option value="Legal & Compliance">Legal & Compliance</option>
+                          </select>
+                        </div>
+                        <div className="w-full md:w-64">
+                          <input 
+                            type="text"
+                            placeholder="Omni-Search regulations..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-black/40 border border-white/20 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-cyan-400 transition"
+                          />
+                        </div>
                       </div>
+
                       <button 
                         onClick={() => {
                           const csvContent = "data:text/csv;charset=utf-8," + 

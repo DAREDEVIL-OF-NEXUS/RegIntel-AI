@@ -26,7 +26,7 @@
 * **Anti-Fraud Escalation Engine**: Restricts officers to 3 evidence upload attempts per regulation. After 6 total failures across the platform, the officer's account is permanently banned. Fraudulent uploads immediately alert the Admin dashboard.
 * **Intelligent JSON Parsing & Novice Translation**: The backend natively strips hallucinated markdown, enforcing strict schema compliance, while the MAP Agent translates complex banking jargon into highly descriptive, novice-friendly AI summaries and separated step-by-step recommendations.
 * **Dynamic MAP UI Engine**: The frontend intercepts raw JSON action plans from the LLM and mathematically splits them into beautiful Action, Metric, and Evidence UI Cards, ensuring absolute readability.
-* **Advanced Compliance Reporting & Heatmaps**: Built-in Admin tools feature a live 2D Compliance Risk Heatmap to visualize departmental loads, dynamic department filtering, and one-click CSV Data Exports of the entire compliance queue.
+* **Advanced Compliance Reporting & Heatmaps**: Built-in Admin tools feature a live 2D Compliance Risk Heatmap to visualize departmental loads, dynamic department filtering, a Global Omni-Search engine, and one-click CSV Data Exports of the entire compliance queue.
 * **Fault-Tolerant Database Integration**: Active connection probing that automatically falls back from Cloud PostgreSQL to Local SQLite during network outages.
 
 ---

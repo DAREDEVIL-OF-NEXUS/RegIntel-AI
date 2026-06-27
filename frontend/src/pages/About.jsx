@@ -139,6 +139,7 @@ export default function About() {
               <PhaseCard num="12" title="UI Formatting & MAP Rendering Upgrade" desc="Completely overhauled the rendering of Measurable Action Points (MAPs) on the dashboard into a beautifully formatted grid. Enhanced the AI Agent to logically separate step-by-step instructions from additional recommendations using bullet points and numbered lists." />
               <PhaseCard num="13" title="Advanced Admin Reporting Engine" desc="Integrated a dynamic Department Filtering engine into the Admin Dashboard. Built a one-click CSV Data Export feature for real-time compliance reporting and auditing." />
               <PhaseCard num="14" title="Compliance Risk Heatmap & Analytics" desc="Replaced hardcoded infographics with a real-time Risk Heatmap. The dashboard now cross-references Departments against AI-generated Priority Scores to dynamically color-code pending regulatory load across the enterprise." />
+              <PhaseCard num="15" title="Global Semantic Omni-Search" desc="Implemented a real-time search engine on the Master Dashboard. Admins can now instantly filter thousands of regulations by ID, text snippets, or AI summaries, creating a lightning-fast data retrieval experience." />
             </div>
           </section>
         </div>
