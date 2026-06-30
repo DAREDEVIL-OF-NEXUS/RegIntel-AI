@@ -2,7 +2,7 @@
 
 This document tracks the current structure and position in development. It serves as an onboarding guide for any new developer or agent joining the project.
 
-## Current Phase: Phase 5 Complete (Production Ready)
+## Current Phase: Phase 16 Complete (Human-in-the-Loop & Omni-Search)
 
 | Phase | Description | Status |
 |---|---|---|
@@ -16,21 +16,24 @@ This document tracks the current structure and position in development. It serve
 | **Phase 7** | Priority Engine: Priority scoring (1-10) and DB updates. | ✅ **Complete** |
 | **Phase 8** | Dashboard APIs & Vision Auditor (LLaVA/Gemini). | ✅ **Complete** |
 | **Phase 9** | Master Frontend Upgrade: Role-based dashboards, Swiggy-style tracking. | ✅ **Complete** |
-| **Phase 10**| Documentation & Grand UI Polish. | ⏳ **Upcoming** |
+| **Phase 10**| Documentation & Grand UI Polish. | ✅ **Complete** |
+| **Phase 11-14**| Advanced Features, LLM Tertiary Mock Fallbacks, API Enhancements. | ✅ **Complete** |
+| **Phase 15**| Global Semantic Omni-Search. | ✅ **Complete** |
+| **Phase 16**| Human-in-the-loop Registration Checkpoint and UI formatting. | ✅ **Complete** |
 
-## System Structure Overview (As of Phase 5)
-- `docker-compose.yml`: **[NEW]** Spins up the entire stack (PostgreSQL, Backend API, Frontend UI).
+## System Structure Overview (As of Phase 16)
+- `docker-compose.yml`: Spins up the entire stack (PostgreSQL, Backend API, Frontend UI).
 - `frontend/app.py`: Streamlit UI Dashboard. (Containerized via `frontend/Dockerfile`).
-- `backend/main.py`: API endpoints. (Containerized via `backend/Dockerfile`).
-- `backend/config/settings.py`: **[NEW]** Environment variable management (dynamically swaps SQLite and Postgres).
+- `backend/main.py`: API endpoints, including new `register-obligation` endpoints.
+- `backend/config/settings.py`: Environment variable management.
 - `backend/auth/jwt_handler.py`: Token creation and RBAC.
 - `backend/services/evidence_service.py`: Compliance proof validation.
 - `backend/graph/`: Custom agent orchestration engine (`core.py`, `nodes.py`).
-- `backend/services/knowledge_service.py`: Simulates a Vector Database.
+- `backend/services/knowledge_service.py`: Simulates a Vector Database for semantic search.
 - `backend/services/workflow_service.py`: Graph execution service.
 - `backend/agents/`: Agent logic.
 - `backend/repositories/workflow_repository.py`: DB write isolation.
-- `backend/database.py`: SQLAlchemy setup with fault-tolerant active-probing fallback (PostgreSQL ➔ SQLite).
+- `backend/database.py`: SQLAlchemy setup with fault-tolerant active-probing fallback.
 
 ## Recent Updates
-- Completed Phase 5: The application is now fully Production Ready. We introduced environment-based configuration (`settings.py`), prepared the database layer for PostgreSQL, and containerized the entire stack using Docker and Docker Compose.
+- **Completed Phase 16**: Implemented Human-in-the-loop registration checkpoints ensuring a human reviews the AI's execution before registering obligations to the database. Added Global Semantic Omni-search (Phase 15) and Tertiary Mock fallbacks for resilient demos.
