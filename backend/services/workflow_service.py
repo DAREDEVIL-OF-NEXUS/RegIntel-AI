@@ -43,13 +43,35 @@ class WorkflowService:
         if not text: return "{}"
         
         import re
-        # Try to find a JSON block between curly braces or brackets using a greedy match
-        match = re.search(r'(\{.*\}|\[.*\])', text, re.DOTALL)
-        if match:
-            json_str = match.group(0).strip()
-            # Remove any trailing commas that might break json.loads
-            json_str = re.sub(r',\s*([\}\]])', r'\1', json_str)
-            return json_str
+        # Strip potential markdown blocks
+        text = re.sub(r'```(?:json)?\s*', '', text)
+        text = re.sub(r'```\s*', '', text)
+        
+        start_brace = text.find('{')
+        start_bracket = text.find('[')
+        
+        start = -1
+        is_obj = True
+        if start_brace != -1 and start_bracket != -1:
+            if start_brace < start_bracket:
+                start = start_brace
+            else:
+                start = start_bracket
+                is_obj = False
+        elif start_brace != -1:
+            start = start_brace
+        elif start_bracket != -1:
+            start = start_bracket
+            is_obj = False
+            
+        if start != -1:
+            end_char = '}' if is_obj else ']'
+            end = text.rfind(end_char)
+            if end != -1 and end > start:
+                json_str = text[start:end+1].strip()
+                # Remove any trailing commas that might break json.loads
+                json_str = re.sub(r',\s*([\}\]])', r'\1', json_str)
+                return json_str
             
         return text.strip()
 
@@ -84,9 +106,32 @@ class WorkflowService:
             ai_recommendation = ""
             try:
                 map_json = json.loads(final_state.map_output, strict=False)
+                for k in ["map", "metric", "evidence_required", "ai_summary", "ai_recommendation"]:
+                    if k not in map_json:
+                        map_json[k] = "Not provided."
                 final_state.map_output = json.dumps(map_json)
-            except:
-                pass
+            except Exception as e:
+                print(f"Failed to parse MAP JSON: {e}")
+                print(f"Raw map_output was: {repr(final_state.map_output)}")
+                
+                import re
+                fallback_map = {}
+                keys = ["map", "metric", "evidence_required", "ai_summary", "ai_recommendation"]
+                for key in keys:
+                    pattern = f'"{key}"\\s*:\\s*"(.*?)"(?=\\s*,\\s*"|\\s*\\}}\\s*$)'
+                    match = re.search(pattern, final_state.map_output, re.DOTALL)
+                    if match:
+                        val = match.group(1)
+                        val = val.replace('\\n', '\n').replace('\\"', '"')
+                        fallback_map[key] = val
+                    else:
+                        pattern_nq = f'"{key}"\\s*:\\s*([^,}}]+)'
+                        match_nq = re.search(pattern_nq, final_state.map_output, re.DOTALL)
+                        if match_nq:
+                            fallback_map[key] = match_nq.group(1).strip().strip('"')
+                        else:
+                            fallback_map[key] = "Not provided."
+                final_state.map_output = json.dumps(fallback_map)
                 
             try:
                 dept_json = json.loads(final_state.department_output, strict=False)
