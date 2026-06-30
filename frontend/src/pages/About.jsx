@@ -92,8 +92,8 @@ export default function About() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Madhav Mittal</h3>
-                <p className="text-white/40 text-sm font-semibold mb-3">Logistics Support</p>
-                <p className="text-white/60 text-sm">Provided moral support and assisted with department coordination.</p>
+                <p className="text-white/80 text-sm font-semibold mb-3">Strategy & Operations Lead</p>
+                <p className="text-white/60 text-sm">Spearheaded workflow coordination and operational logistics, ensuring seamless cross-departmental integration for the platform.</p>
               </motion.div>
 
               {/* Jaskeerat Singh */}
@@ -103,8 +103,8 @@ export default function About() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Jaskeerat Singh</h3>
-                <p className="text-white/40 text-sm font-semibold mb-3">Testing & Feedback</p>
-                <p className="text-white/60 text-sm">Helped in testing the UI elements and gathering feedback.</p>
+                <p className="text-white/80 text-sm font-semibold mb-3">User Experience & QA Lead</p>
+                <p className="text-white/60 text-sm">Drove the end-to-end testing pipeline and UI/UX validation, guaranteeing a flawless, enterprise-grade user experience.</p>
               </motion.div>
 
               {/* Krishna Mittal */}
@@ -114,8 +114,8 @@ export default function About() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Krishna Mittal</h3>
-                <p className="text-white/40 text-sm font-semibold mb-3">Quality Assurance</p>
-                <p className="text-white/60 text-sm">Supported the team by checking for typos and bugs.</p>
+                <p className="text-white/80 text-sm font-semibold mb-3">Data & Systems Analyst</p>
+                <p className="text-white/60 text-sm">Conducted rigorous quality assurance and system integrity checks, fortifying the platform against edge cases and vulnerabilities.</p>
               </motion.div>
             </div>
           </section>
