@@ -176,7 +176,9 @@ def register_obligation(req: RegisterRequest, db: Session = Depends(get_db), cur
         ai_recommendation = map_json.get("ai_recommendation", "")
         
         if "map" in map_json:
-            map_val = str(map_json.get("map", req.map_val))
+            # DO NOT overwrite map_val with just the string, keep the full JSON structure
+            # so the frontend can parse metric, evidence_required, etc.
+            pass
     except:
         pass
         

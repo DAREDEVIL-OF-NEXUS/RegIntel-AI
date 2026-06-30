@@ -43,10 +43,13 @@ class WorkflowService:
         if not text: return "{}"
         
         import re
-        # Try to find a JSON block between curly braces or brackets
-        match = re.search(r'(\{.*?\}|\[.*?\])', text, re.DOTALL)
+        # Try to find a JSON block between curly braces or brackets using a greedy match
+        match = re.search(r'(\{.*\}|\[.*\])', text, re.DOTALL)
         if match:
-            return match.group(0).strip()
+            json_str = match.group(0).strip()
+            # Remove any trailing commas that might break json.loads
+            json_str = re.sub(r',\s*([\}\]])', r'\1', json_str)
+            return json_str
             
         return text.strip()
 
@@ -81,11 +84,7 @@ class WorkflowService:
             ai_recommendation = ""
             try:
                 map_json = json.loads(final_state.map_output, strict=False)
-                ai_summary = map_json.get("ai_summary", "")
-                ai_recommendation = map_json.get("ai_recommendation", "")
-                
-                if "map" in map_json:
-                    final_state.map_output = str(map_json.get("map", final_state.map_output))
+                final_state.map_output = json.dumps(map_json)
             except:
                 pass
                 
