@@ -7,6 +7,8 @@
 
   *Built by a First-Year B.Tech CSE Student @ Delhi Technological University (DTU)*
 
+  **[🌐 Live Frontend (Vercel)](https://reg-intel-ai.vercel.app/)** | **[⚙️ Live Backend API (Render)](https://regintel-ai.onrender.com)** | **[🎥 Video Overview (Loom)](https://www.loom.com/share/81f0f2f9f31448caaf9d6ee014fd53aa)**
+
 </div>
 
 <p align="center">

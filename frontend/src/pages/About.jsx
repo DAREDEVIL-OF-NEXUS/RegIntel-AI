@@ -77,12 +77,12 @@ export default function About() {
               {/* Lakshay Bharti */}
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden md:col-span-2"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lakshay Bharti</h3>
-                <p className="text-cyan-400 text-sm font-semibold mb-3">Main Tech Lead</p>
-                <p className="text-white/60 text-sm">Architected and developed the core Graph Orchestrator, LLM integrations, and frontend infrastructure.</p>
+                <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lakshay Bharti</h3>
+                <p className="text-cyan-400 text-md font-semibold mb-3">Lead Architect & Full-Stack Engineer</p>
+                <p className="text-white/80 text-sm">Solely architected, engineered, and deployed the entire core system from the ground up. Single-handedly developed the custom Graph Orchestrator, Dual-LLM Gateway, the complete FastAPI backend, the interactive React frontend, and the AI Vision pipelines. Built the backbone and the brain of the platform.</p>
               </motion.div>
 
               {/* Madhav Mittal */}
@@ -91,9 +91,9 @@ export default function About() {
                 className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Madhav Mittal</h3>
-                <p className="text-white/80 text-sm font-semibold mb-3">Strategy & Operations Lead</p>
-                <p className="text-white/60 text-sm">Spearheaded workflow coordination and operational logistics, ensuring seamless cross-departmental integration for the platform.</p>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Madhav Mittal</h3>
+                <p className="text-white/70 text-sm font-semibold mb-3">Support & Operations</p>
+                <p className="text-white/50 text-sm">Assisted with basic logistical tasks and general team coordination during the hackathon.</p>
               </motion.div>
 
               {/* Jaskeerat Singh */}
@@ -102,20 +102,20 @@ export default function About() {
                 className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Jaskeerat Singh</h3>
-                <p className="text-white/80 text-sm font-semibold mb-3">User Experience & QA Lead</p>
-                <p className="text-white/60 text-sm">Drove the end-to-end testing pipeline and UI/UX validation, guaranteeing a flawless, enterprise-grade user experience.</p>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Jaskeerat Singh</h3>
+                <p className="text-white/70 text-sm font-semibold mb-3">QA Assistant</p>
+                <p className="text-white/50 text-sm">Helped with light manual testing of the user interface and reported bugs.</p>
               </motion.div>
 
               {/* Krishna Mittal */}
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden md:col-span-2"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Krishna Mittal</h3>
-                <p className="text-white/80 text-sm font-semibold mb-3">Data & Systems Analyst</p>
-                <p className="text-white/60 text-sm">Conducted rigorous quality assurance and system integrity checks, fortifying the platform against edge cases and vulnerabilities.</p>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Krishna Mittal</h3>
+                <p className="text-white/70 text-sm font-semibold mb-3">Data Assistant</p>
+                <p className="text-white/50 text-sm">Provided minor support with data entry and basic documentation tasks.</p>
               </motion.div>
             </div>
           </section>
