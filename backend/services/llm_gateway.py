@@ -29,7 +29,10 @@ class LLMGateway:
                         "role": "user",
                         "content": prompt
                     }
-                ]
+                ],
+                options={
+                    "temperature": 0.0
+                }
             )
             return response["message"]["content"]
         except Exception as e:

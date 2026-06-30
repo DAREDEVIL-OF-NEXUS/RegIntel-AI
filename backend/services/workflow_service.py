@@ -70,8 +70,9 @@ class WorkflowService:
             
             p_score = 5
             try:
-                parsed_json = json.loads(final_state.parsed_output)
+                parsed_json = json.loads(final_state.parsed_output, strict=False)
                 p_score = int(parsed_json.get("Priority_Score_1_to_10", 5))
+                # Do NOT overwrite parsed_output here if the UI expects it to be JSON, but let's check.
             except:
                 pass
             final_state.priority_score = p_score
@@ -79,9 +80,19 @@ class WorkflowService:
             ai_summary = ""
             ai_recommendation = ""
             try:
-                map_json = json.loads(final_state.map_output)
+                map_json = json.loads(final_state.map_output, strict=False)
                 ai_summary = map_json.get("ai_summary", "")
                 ai_recommendation = map_json.get("ai_recommendation", "")
+                
+                if "map" in map_json:
+                    final_state.map_output = str(map_json.get("map", final_state.map_output))
+            except:
+                pass
+                
+            try:
+                dept_json = json.loads(final_state.department_output, strict=False)
+                if "department" in dept_json:
+                    final_state.department_output = str(dept_json.get("department", final_state.department_output))
             except:
                 pass
 

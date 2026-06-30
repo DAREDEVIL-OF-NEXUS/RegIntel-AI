@@ -169,17 +169,21 @@ def register_obligation(req: RegisterRequest, db: Session = Depends(get_db), cur
     import json
     ai_summary = ""
     ai_recommendation = ""
+    map_val = req.map_val
     try:
-        map_json = json.loads(req.map_val)
+        map_json = json.loads(req.map_val, strict=False)
         ai_summary = map_json.get("ai_summary", "")
         ai_recommendation = map_json.get("ai_recommendation", "")
+        
+        if "map" in map_json:
+            map_val = str(map_json.get("map", req.map_val))
     except:
         pass
         
     repo.save_workflow_log(
         regulation=req.regulation,
         parsed=req.parsed,
-        map_val=req.map_val,
+        map_val=map_val,
         department=req.department,
         validation=req.validation,
         priority_score=req.priority_score,
