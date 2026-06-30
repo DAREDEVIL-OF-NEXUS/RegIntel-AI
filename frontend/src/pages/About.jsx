@@ -67,6 +67,60 @@ export default function About() {
           </section>
 
           <section className="relative z-10 group mt-16 mb-16">
+            <h2 className="text-3xl font-extrabold text-white mb-8 flex items-center gap-4 group-hover:text-blue-400 transition-colors tracking-tight">
+              <div className="p-4 bg-gradient-to-br from-blue-500/20 to-indigo-500/10 rounded-2xl border border-blue-500/30 group-hover:border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.2)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all">
+                <Users className="text-blue-400" size={32} />
+              </div>
+              The Team
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Lakshay Bharti */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lakshay Bharti</h3>
+                <p className="text-cyan-400 text-sm font-semibold mb-3">Main Tech Lead</p>
+                <p className="text-white/60 text-sm">Architected and developed the core Graph Orchestrator, LLM integrations, and frontend infrastructure.</p>
+              </motion.div>
+
+              {/* Madhav Mittal */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Madhav Mittal</h3>
+                <p className="text-white/40 text-sm font-semibold mb-3">Logistics Support</p>
+                <p className="text-white/60 text-sm">Provided moral support and assisted with department coordination.</p>
+              </motion.div>
+
+              {/* Jaskeerat Singh */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Jaskeerat Singh</h3>
+                <p className="text-white/40 text-sm font-semibold mb-3">Testing & Feedback</p>
+                <p className="text-white/60 text-sm">Helped in testing the UI elements and gathering feedback.</p>
+              </motion.div>
+
+              {/* Krishna Mittal */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="glass-panel p-6 border border-white/5 hover:border-blue-400/30 transition-colors shadow-lg group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Krishna Mittal</h3>
+                <p className="text-white/40 text-sm font-semibold mb-3">Quality Assurance</p>
+                <p className="text-white/60 text-sm">Supported the team by checking for typos and bugs.</p>
+              </motion.div>
+            </div>
+          </section>
+
+          <section className="relative z-10 group mt-16 mb-16">
             <h2 className="text-3xl font-extrabold text-white mb-8 flex items-center gap-4 group-hover:text-pink-400 transition-colors tracking-tight">
               <div className="p-4 bg-gradient-to-br from-pink-500/20 to-rose-500/10 rounded-2xl border border-pink-500/30 group-hover:border-pink-400 shadow-[0_0_20px_rgba(244,114,182,0.2)] group-hover:shadow-[0_0_30px_rgba(244,114,182,0.4)] transition-all">
                 <Code2 className="text-pink-400" size={32} />
