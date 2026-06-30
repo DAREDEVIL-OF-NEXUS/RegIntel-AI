@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { GraduationCap, Heart, Code2 } from "lucide-react";
+import { GraduationCap, Heart, Code2, Users } from "lucide-react";
 
 export default function About() {
   return (
