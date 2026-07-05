@@ -24,6 +24,7 @@ Team Members:
 * Lakshay Bharti
 * Madhav Mittal
 * Krishna Mittal
+* Jaskeerat Singh
 
 ---
 
